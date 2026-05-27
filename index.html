@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#050016" />
+  <title>Generación 2023 - 2026 | Con cariño</title>
+  <style>
+    :root {
+      --pink: #ff2bd6;
+      --cyan: #00f7ff;
+      --gold: #ffe66d;
+      --green: #42ff9e;
+      --purple: #9b5cff;
+      --warm: #ff9d3d;
+      --glass: rgba(6, 5, 24, 0.62);
+      --soft-white: rgba(255, 255, 255, 0.92);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      height: 100%;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100%;
+      overflow-x: hidden;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #03000b;
+      color: white;
+    }
+
+    body.ready {
+      overflow-y: auto;
+    }
+
+    .page {
+      position: relative;
+      min-height: 100svh;
+      display: grid;
+      place-items: center;
+      padding: max(18px, env(safe-area-inset-top)) 16px max(18px, env(safe-area-inset-bottom));
+      isolation: isolate;
+      background:
+        radial-gradient(circle at 14% 16%, rgba(255, 43, 214, 0.28), transparent 28%),
+        radial-gradient(circle at 88% 18%, rgba(0, 247, 255, 0.22), transparent 25%),
+        radial-gradient(circle at 52% 92%, rgba(255, 230, 109, 0.20), transparent 34%),
+        linear-gradient(145deg, #060012 0%, #050018 42%, #000 100%);
+      overflow: hidden;
+    }
+
+    canvas#particles {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -4;
+      pointer-events: none;
+    }
+
+    .aurora {
+      position: fixed;
+      inset: -35%;
+      z-index: -5;
+      background: conic-gradient(
+        from 90deg,
+        rgba(255, 43, 214, 0.22),
+        rgba(0, 247, 255, 0.18),
+        rgba(255, 230, 109, 0.16),
+        rgba(66, 255, 158, 0.15),
+        rgba(155, 92, 255, 0.24),
+        rgba(255, 43, 214, 0.22)
+      );
+      filter: blur(76px);
+      opacity: 0.95;
+      animation: auroraSpin 28s linear infinite;
+      will-change: transform;
+    }
+
+    .halo {
+      position: fixed;
+      width: 56vmax;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.18), rgba(255,43,214,0.14) 22%, transparent 64%);
+      filter: blur(22px);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: -3;
+      animation: breathe 5s ease-in-out infinite alternate;
+    }
+
+    .intro {
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background:
+        radial-gradient(circle at center, rgba(255,255,255,0.11), transparent 20%),
+        linear-gradient(145deg, #060017, #000);
+      transition: opacity 900ms ease, visibility 900ms ease;
+    }
+
+    .intro.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .intro-card {
+      width: min(660px, 92vw);
+      text-align: center;
+      padding: clamp(26px, 6vw, 54px);
+      border-radius: 34px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.24);
+      box-shadow: 0 0 50px rgba(255,43,214,0.28), inset 0 0 36px rgba(255,255,255,0.08);
+      backdrop-filter: blur(18px);
+      animation: introArrive 1s cubic-bezier(.2,1,.2,1) both;
+    }
+
+    .intro-kicker {
+      color: var(--gold);
+      font-weight: 800;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      font-size: clamp(0.78rem, 2.2vw, 1rem);
+      text-shadow: 0 0 18px rgba(255,230,109,0.9);
+    }
+
+    .intro-title {
+      margin-top: 18px;
+      font-size: clamp(2.4rem, 11vw, 5.8rem);
+      line-height: 0.92;
+      font-weight: 1000;
+      background: linear-gradient(90deg, var(--pink), var(--cyan), var(--gold), var(--green), var(--pink));
+      background-size: 320% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: rainbowText 4s linear infinite;
+      text-shadow: 0 0 24px rgba(255,255,255,0.26);
+    }
+
+    .intro-text {
+      margin: 18px auto 26px;
+      max-width: 520px;
+      color: rgba(255,255,255,0.86);
+      line-height: 1.55;
+      font-size: clamp(1rem, 2.8vw, 1.18rem);
+    }
+
+    .start-btn, .sound-btn {
+      appearance: none;
+      border: 0;
+      cursor: pointer;
+      border-radius: 999px;
+      font-weight: 900;
+      color: #080010;
+      background: linear-gradient(90deg, #fff, #ffe66d, #00f7ff, #ff7be7, #fff);
+      background-size: 280% 100%;
+      box-shadow: 0 0 24px rgba(255,255,255,0.55), 0 0 42px rgba(0,247,255,0.35);
+      animation: rainbowText 3.2s linear infinite, buttonPulse 1.8s ease-in-out infinite alternate;
+      transition: transform 180ms ease, filter 180ms ease;
+      touch-action: manipulation;
+    }
+
+    .start-btn {
+      padding: 15px 28px;
+      font-size: clamp(1rem, 3vw, 1.15rem);
+    }
+
+    .start-btn:active, .sound-btn:active {
+      transform: scale(0.96);
+    }
+
+    .sound-btn {
+      position: fixed;
+      right: max(14px, env(safe-area-inset-right));
+      bottom: max(14px, env(safe-area-inset-bottom));
+      z-index: 10;
+      width: 54px;
+      height: 54px;
+      display: grid;
+      place-items: center;
+      font-size: 1.25rem;
+    }
+
+    .stage {
+      position: relative;
+      width: min(1120px, 94vw);
+      min-height: min(760px, 92svh);
+      display: grid;
+      place-items: center;
+      perspective: 1200px;
+    }
+
+    .sign {
+      position: relative;
+      width: 100%;
+      min-height: min(760px, 92svh);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: clamp(30px, 6vw, 76px) clamp(20px, 5vw, 68px);
+      border-radius: clamp(28px, 5vw, 54px);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.10), transparent 16%),
+        var(--glass);
+      border: 1px solid rgba(255,255,255,0.24);
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.08),
+        0 0 34px rgba(255,255,255,0.22),
+        0 0 76px rgba(255,43,214,0.33),
+        0 0 120px rgba(0,247,255,0.24),
+        inset 0 0 48px rgba(255,255,255,0.09);
+      backdrop-filter: blur(18px);
+      overflow: hidden;
+      transform-style: preserve-3d;
+      animation: signReveal 1.4s 0.25s cubic-bezier(.2,1,.2,1) both, signGlow 3s ease-in-out infinite alternate;
+      will-change: transform;
+    }
+
+    .sign::before {
+      content: "";
+      position: absolute;
+      inset: 12px;
+      border-radius: clamp(20px, 4vw, 42px);
+      border: 2px solid rgba(255,255,255,0.18);
+      background:
+        linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent) 0 0 / 260% 100% no-repeat;
+      animation: borderLight 4.5s linear infinite;
+      pointer-events: none;
+    }
+
+    .sign::after {
+      content: "";
+      position: absolute;
+      inset: -4px;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--pink), var(--cyan), var(--gold), var(--green), var(--purple), var(--pink));
+      background-size: 360% 100%;
+      filter: blur(18px);
+      opacity: 0.48;
+      animation: rainbowText 6s linear infinite;
+    }
+
+    .content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+    }
+
+    .ribbon {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: clamp(18px, 4vw, 34px);
+      padding: 11px 20px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.22);
+      box-shadow: 0 0 24px rgba(255,230,109,0.22), inset 0 0 18px rgba(255,255,255,0.08);
+      color: var(--gold);
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-size: clamp(0.72rem, 2.3vw, 0.95rem);
+      text-shadow: 0 0 14px rgba(255,230,109,0.9);
+      animation: dropIn 900ms 1.05s cubic-bezier(.2,1,.2,1) both;
+    }
+
+    .ribbon .mini-heart {
+      color: #ff71c8;
+      animation: heartbeat 1.35s infinite;
+      text-shadow: 0 0 16px #ff71c8;
+    }
+
+    h1 {
+      font-size: clamp(2.65rem, 12vw, 8.4rem);
+      line-height: 0.88;
+      font-weight: 1000;
+      letter-spacing: -0.05em;
+      text-wrap: balance;
+      background: linear-gradient(90deg, #fff, var(--cyan), var(--gold), var(--pink), #fff);
+      background-size: 380% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow:
+        0 0 12px rgba(255,255,255,0.62),
+        0 0 30px rgba(0,247,255,0.52),
+        0 0 54px rgba(255,43,214,0.42);
+      animation: titleEnter 1.2s 1.28s cubic-bezier(.17,1.35,.22,1) both, rainbowText 4s linear infinite, gentleFlicker 5.5s infinite;
+    }
+
+    .divider {
+      width: min(420px, 64vw);
+      height: 3px;
+      margin: clamp(20px, 4vw, 34px) auto;
+      border-radius: 999px;
+      background: linear-gradient(90deg, transparent, var(--pink), var(--cyan), var(--gold), transparent);
+      box-shadow: 0 0 20px rgba(0,247,255,0.9);
+      animation: growLine 1.1s 1.85s ease both;
+      transform-origin: center;
+    }
+
+    .message-box {
+      position: relative;
+      margin-inline: auto;
+      width: min(900px, 100%);
+      padding: clamp(18px, 4vw, 32px);
+      border-radius: 28px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.17);
+      box-shadow: inset 0 0 26px rgba(255,255,255,0.06), 0 0 30px rgba(255,255,255,0.08);
+      animation: messageIn 1s 2.05s ease both;
+    }
+
+    .message {
+      font-size: clamp(1.12rem, 3.5vw, 2.25rem);
+      line-height: 1.48;
+      font-weight: 750;
+      color: var(--soft-white);
+      text-wrap: balance;
+      text-shadow:
+        0 0 10px rgba(255,255,255,0.78),
+        0 0 22px rgba(0,247,255,0.42),
+        0 0 34px rgba(255,43,214,0.28);
+    }
+
+    .message .line {
+      display: inline;
+      opacity: 0;
+      animation: phraseIn 900ms ease both;
+    }
+
+    .message .line:nth-child(1) { animation-delay: 2.35s; }
+    .message .line:nth-child(2) { animation-delay: 2.75s; }
+    .message .line:nth-child(3) { animation-delay: 3.15s; }
+    .message .line:nth-child(4) { animation-delay: 3.55s; }
+
+    .highlight {
+      color: #fff6b7;
+      text-shadow: 0 0 14px rgba(255,230,109,0.95), 0 0 28px rgba(255,157,61,0.55);
+    }
+
+    .signature {
+      margin-top: clamp(24px, 5vw, 42px);
+      font-family: Georgia, "Times New Roman", serif;
+      font-style: italic;
+      font-size: clamp(1.12rem, 3.5vw, 2.3rem);
+      color: #fff0bd;
+      text-shadow: 0 0 14px rgba(255,230,109,0.82), 0 0 28px rgba(255,157,61,0.5);
+      animation: signatureIn 1s 4s ease both;
+    }
+
+    .signature strong {
+      display: inline-block;
+      margin-top: 6px;
+      font-size: 1.1em;
+      background: linear-gradient(90deg, #fff3b0, #fff, #ffc2ef, #fff3b0);
+      background-size: 280% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: rainbowText 3.8s linear infinite;
+    }
+
+    .floating-word {
+      position: absolute;
+      z-index: 1;
+      color: rgba(255,255,255,0.16);
+      font-size: clamp(0.85rem, 2vw, 1.25rem);
+      font-weight: 900;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      pointer-events: none;
+      text-shadow: 0 0 18px currentColor;
+      animation: floatWord 8s ease-in-out infinite alternate;
+    }
+
+    .w1 { top: 9%; left: 8%; color: rgba(0,247,255,0.24); animation-delay: 0s; }
+    .w2 { top: 13%; right: 8%; color: rgba(255,230,109,0.23); animation-delay: 0.7s; }
+    .w3 { bottom: 10%; left: 10%; color: rgba(255,43,214,0.22); animation-delay: 1.1s; }
+    .w4 { bottom: 13%; right: 8%; color: rgba(66,255,158,0.20); animation-delay: 1.8s; }
+
+    .beam {
+      position: absolute;
+      top: -55%;
+      left: -40%;
+      width: 180%;
+      height: 160px;
+      transform: rotate(-17deg);
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.26), transparent);
+      filter: blur(2px);
+      animation: beamSweep 6s 1.2s infinite ease-in-out;
+      pointer-events: none;
+    }
+
+    .corner {
+      position: absolute;
+      width: clamp(42px, 8vw, 78px);
+      height: clamp(42px, 8vw, 78px);
+      border: 4px solid transparent;
+      filter: drop-shadow(0 0 16px rgba(255,255,255,0.8));
+      animation: cornerBlink 2.2s infinite alternate;
+      pointer-events: none;
+    }
+
+    .tl { top: 24px; left: 24px; border-top-color: var(--pink); border-left-color: var(--cyan); border-radius: 20px 0 0 0; }
+    .tr { top: 24px; right: 24px; border-top-color: var(--gold); border-right-color: var(--green); border-radius: 0 20px 0 0; }
+    .bl { bottom: 24px; left: 24px; border-bottom-color: var(--green); border-left-color: var(--gold); border-radius: 0 0 0 20px; }
+    .br { bottom: 24px; right: 24px; border-bottom-color: var(--cyan); border-right-color: var(--pink); border-radius: 0 0 20px 0; }
+
+    .confetti-pop {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 8;
+      overflow: hidden;
+    }
+
+    .confetti {
+      position: absolute;
+      width: 9px;
+      height: 15px;
+      border-radius: 3px;
+      opacity: 0;
+      animation: confettiFall 3.2s ease-in forwards;
+      will-change: transform, opacity;
+    }
+
+    @keyframes auroraSpin { to { transform: rotate(360deg); } }
+    @keyframes breathe { from { transform: translate(-50%, -50%) scale(0.92); opacity: 0.62; } to { transform: translate(-50%, -50%) scale(1.1); opacity: 1; } }
+    @keyframes introArrive { from { opacity: 0; transform: translateY(36px) scale(0.94); filter: blur(12px); } to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); } }
+    @keyframes rainbowText { to { background-position: 380% 0; } }
+    @keyframes buttonPulse { from { filter: brightness(1); } to { filter: brightness(1.2); } }
+    @keyframes signReveal { from { opacity: 0; transform: translateY(42px) scale(0.92) rotateX(10deg); filter: blur(14px); } to { opacity: 1; transform: translateY(0) scale(1) rotateX(0); filter: blur(0); } }
+    @keyframes signGlow { from { box-shadow: 0 0 34px rgba(255,255,255,0.20), 0 0 76px rgba(255,43,214,0.28), 0 0 120px rgba(0,247,255,0.20), inset 0 0 42px rgba(255,255,255,0.08); } to { box-shadow: 0 0 44px rgba(255,255,255,0.32), 0 0 98px rgba(255,43,214,0.43), 0 0 150px rgba(0,247,255,0.31), inset 0 0 58px rgba(255,255,255,0.12); } }
+    @keyframes borderLight { to { background-position: 260% 0; } }
+    @keyframes dropIn { from { opacity: 0; transform: translateY(-28px) scale(0.92); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    @keyframes titleEnter { from { opacity: 0; transform: translateY(55px) scale(0.76); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    @keyframes gentleFlicker { 0%, 19%, 21%, 59%, 61%, 100% { opacity: 1; } 20%, 60% { opacity: 0.86; } }
+    @keyframes growLine { from { transform: scaleX(0); opacity: 0; } to { transform: scaleX(1); opacity: 1; } }
+    @keyframes messageIn { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes phraseIn { from { opacity: 0; filter: blur(8px); } to { opacity: 1; filter: blur(0); } }
+    @keyframes signatureIn { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes heartbeat { 0%, 100% { transform: scale(1); } 25% { transform: scale(1.25); } 48% { transform: scale(0.96); } 72% { transform: scale(1.14); } }
+    @keyframes floatWord { from { transform: translate3d(0, -8px, 0); opacity: 0.12; } to { transform: translate3d(0, 10px, 0); opacity: 0.28; } }
+    @keyframes beamSweep { 0% { top: -55%; opacity: 0; } 20% { opacity: 1; } 58% { top: 120%; opacity: 0.6; } 100% { top: 140%; opacity: 0; } }
+    @keyframes cornerBlink { from { opacity: 0.62; } to { opacity: 1; } }
+    @keyframes confettiFall { 0% { opacity: 1; transform: translate3d(0, -10vh, 0) rotate(0deg); } 100% { opacity: 0; transform: translate3d(var(--drift), 105vh, 0) rotate(720deg); } }
+
+    @media (hover: hover) and (pointer: fine) {
+      .start-btn:hover, .sound-btn:hover {
+        transform: translateY(-2px) scale(1.03);
+        filter: brightness(1.18);
+      }
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        align-items: start;
+        padding-top: 18px;
+        overflow-y: auto;
+      }
+
+      .stage, .sign {
+        min-height: calc(100svh - 36px);
+      }
+
+      .sign {
+        padding: 38px 18px 86px;
+        border-radius: 30px;
+      }
+
+      .sign::before {
+        inset: 9px;
+      }
+
+      .message-box {
+        padding: 18px 14px;
+        border-radius: 22px;
+      }
+
+      .ribbon {
+        max-width: 94%;
+        justify-content: center;
+        letter-spacing: 0.09em;
+      }
+
+      .floating-word {
+        display: none;
+      }
+
+      .corner {
+        border-width: 3px;
+      }
+
+      .tl { top: 16px; left: 16px; }
+      .tr { top: 16px; right: 16px; }
+      .bl { bottom: 16px; left: 16px; }
+      .br { bottom: 16px; right: 16px; }
+
+      .sound-btn {
+        width: 50px;
+        height: 50px;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .message {
+        line-height: 1.42;
+      }
+
+      .intro-card {
+        border-radius: 26px;
+      }
+
+      .start-btn {
+        width: 100%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+      }
+
+      canvas#particles, .aurora, .halo, .beam {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="particles" aria-hidden="true"></canvas>
+  <div class="aurora" aria-hidden="true"></div>
+  <div class="halo" aria-hidden="true"></div>
+  <div class="confetti-pop" id="confetti" aria-hidden="true"></div>
+
+  <section class="intro" id="intro" aria-label="Pantalla de inicio">
+    <div class="intro-card">
+      <div class="intro-kicker">Un mensaje especial</div>
+      <h2 class="intro-title">Generación<br>2023 - 2026</h2>
+      <p class="intro-text">
+        Un letrero luminoso para celebrar una etapa que se queda en el corazón.
+      </p>
+      <button class="start-btn" id="startBtn">Iniciar homenaje ✨</button>
+    </div>
+  </section>
+
+  <main class="page">
+    <section class="stage" aria-label="Letrero luminoso para la generación 2023 2026">
+      <article class="sign" id="sign">
+        <div class="beam" aria-hidden="true"></div>
+        <div class="corner tl" aria-hidden="true"></div>
+        <div class="corner tr" aria-hidden="true"></div>
+        <div class="corner bl" aria-hidden="true"></div>
+        <div class="corner br" aria-hidden="true"></div>
+
+        <span class="floating-word w1">Sueños</span>
+        <span class="floating-word w2">Éxito</span>
+        <span class="floating-word w3">Orgullo</span>
+        <span class="floating-word w4">Futuro</span>
+
+        <div class="content">
+          <div class="ribbon"><span class="mini-heart">♥</span> Con cariño, orgullo y admiración <span class="mini-heart">♥</span></div>
+
+          <h1>Generación<br>2023 - 2026</h1>
+
+          <div class="divider" aria-hidden="true"></div>
+
+          <div class="message-box">
+            <p class="message">
+              <span class="line">Les deseo el mejor de los éxitos </span>
+              <span class="line">y que sus sueños se sigan cumpliendo, </span>
+              <span class="line">para que tengan <span class="highlight">éxito en lo profesional</span> </span>
+              <span class="line">y también <span class="highlight">en lo personal</span>.</span>
+            </p>
+          </div>
+
+          <p class="signature">
+            Son los deseos de su amigo y maestro<br>
+            <strong>Erick Carrillo</strong> <span class="mini-heart">♥</span>
+          </p>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <!-- Cambia el archivo de música aquí.
+       Ejemplos:
+       src="cancion.mp3"
+       src="musica/mi-cancion.mp3"
+       src="audio/graduacion.mp3"
+  -->
+  <audio id="bgMusic" src="Todo A Pulmon.mp3" preload="auto" loop></audio>
+ 
+
+  <script>
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const intro = document.getElementById('intro');
+    const startBtn = document.getElementById('startBtn');
+    const soundBtn = document.getElementById('soundBtn');
+    const sign = document.getElementById('sign');
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d', { alpha: true });
+    const confettiLayer = document.getElementById('confetti');
+
+    const bgMusic = document.getElementById('bgMusic');
+
+    /* =====================================================
+       CONFIGURACIÓN DE LA CANCIÓN
+       Cambia solo estos valores cuando quieras otra canción.
+
+       1) Pon tu archivo .mp3 en la misma carpeta del HTML.
+       2) Cambia el nombre aquí abajo.
+
+       Ejemplos:
+       const CANCION_DE_FONDO = 'cancion.mp3';
+       const CANCION_DE_FONDO = 'mi-cancion.mp3';
+       const CANCION_DE_FONDO = 'musica/graduacion.mp3';
+       const CANCION_DE_FONDO = 'audio/homenaje.mp3';
+    ===================================================== */
+    const CANCION_DE_FONDO = 'Todo A Pulmon.mp3';
+    const VOLUMEN_CANCION = 0.45; // 0.0 = silencio, 1.0 = volumen máximo
+
+    bgMusic.src = CANCION_DE_FONDO;
+    bgMusic.volume = VOLUMEN_CANCION;
+
+    let musicOn = false;
+    let particles = [];
+    let rafId = null;
+    let width = 0;
+    let height = 0;
+    let dpr = Math.min(window.devicePixelRatio || 1, 1.75);
+
+    async function playMusic() {
+      try {
+        bgMusic.currentTime = 0;
+        await bgMusic.play();
+        musicOn = true;
+        soundBtn.textContent = '🔊';
+        soundBtn.title = 'Pausar música';
+      } catch (error) {
+        musicOn = false;
+        soundBtn.textContent = '🔇';
+        soundBtn.title = 'Toca para activar la música';
+        console.warn('El navegador bloqueó la reproducción automática hasta recibir interacción del usuario.', error);
+      }
+    }
+
+    function toggleMusic() {
+      if (bgMusic.paused) {
+        bgMusic.play().then(() => {
+          musicOn = true;
+          soundBtn.textContent = '🔊';
+          soundBtn.title = 'Pausar música';
+        }).catch(() => {
+          musicOn = false;
+          soundBtn.textContent = '🔇';
+          soundBtn.title = 'Toca para activar la música';
+        });
+      } else {
+        bgMusic.pause();
+        musicOn = false;
+        soundBtn.textContent = '🔇';
+        soundBtn.title = 'Reproducir música';
+      }
+    }
+
+    function startExperience() {
+      document.body.classList.add('ready');
+      intro.classList.add('hidden');
+      playMusic();
+      burstConfetti(90);
+      setTimeout(() => burstConfetti(50), 1350);
+    }
+
+    startBtn.addEventListener('click', startExperience, { passive: true });
+    soundBtn.addEventListener('click', toggleMusic, { passive: true });
+
+    function burstConfetti(amount) {
+      if (prefersReducedMotion) return;
+      const colors = ['#ff2bd6', '#00f7ff', '#ffe66d', '#42ff9e', '#9b5cff', '#ff9d3d', '#ffffff'];
+      const fragment = document.createDocumentFragment();
+      for (let i = 0; i < amount; i++) {
+        const piece = document.createElement('span');
+        piece.className = 'confetti';
+        piece.style.left = Math.random() * 100 + 'vw';
+        piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+        piece.style.animationDelay = Math.random() * 0.75 + 's';
+        piece.style.animationDuration = 2.5 + Math.random() * 2.3 + 's';
+        piece.style.setProperty('--drift', (Math.random() * 240 - 120) + 'px');
+        fragment.appendChild(piece);
+      }
+      confettiLayer.appendChild(fragment);
+      setTimeout(() => { confettiLayer.innerHTML = ''; }, 5600);
+    }
+
+    function resizeCanvas() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      dpr = Math.min(window.devicePixelRatio || 1, 1.75);
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
+      canvas.style.width = width + 'px';
+      canvas.style.height = height + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      createParticles();
+    }
+
+    function createParticles() {
+      const isMobile = width < 720;
+      const count = prefersReducedMotion ? 0 : Math.min(isMobile ? 55 : 95, Math.floor((width * height) / (isMobile ? 11000 : 13500)));
+      particles = Array.from({ length: count }, () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        r: Math.random() * 1.9 + 0.6,
+        vx: (Math.random() - 0.5) * 0.18,
+        vy: -0.12 - Math.random() * 0.28,
+        hue: Math.random() * 360,
+        alpha: 0.25 + Math.random() * 0.75,
+        tw: Math.random() * Math.PI * 2
+      }));
+    }
+
+    function drawParticles() {
+      ctx.clearRect(0, 0, width, height);
+      for (const p of particles) {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.tw += 0.035;
+        if (p.y < -10) { p.y = height + 10; p.x = Math.random() * width; }
+        if (p.x < -10) p.x = width + 10;
+        if (p.x > width + 10) p.x = -10;
+
+        const glow = 0.4 + Math.sin(p.tw) * 0.35;
+        ctx.beginPath();
+        ctx.fillStyle = `hsla(${p.hue}, 95%, 70%, ${Math.max(0.12, p.alpha * glow)})`;
+        ctx.shadowColor = `hsla(${p.hue}, 95%, 70%, 0.9)`;
+        ctx.shadowBlur = 14;
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.shadowBlur = 0;
+      rafId = requestAnimationFrame(drawParticles);
+    }
+
+    function initParticles() {
+      if (prefersReducedMotion) return;
+      resizeCanvas();
+      if (rafId) cancelAnimationFrame(rafId);
+      drawParticles();
+    }
+
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(resizeCanvas, 150);
+    }, { passive: true });
+
+    document.addEventListener('pointermove', (event) => {
+      if (window.innerWidth < 900 || prefersReducedMotion) return;
+      const x = event.clientX / window.innerWidth - 0.5;
+      const y = event.clientY / window.innerHeight - 0.5;
+      sign.style.transform = `rotateY(${x * 5}deg) rotateX(${-y * 5}deg)`;
+    }, { passive: true });
+
+    document.addEventListener('pointerleave', () => {
+      sign.style.transform = 'rotateY(0deg) rotateX(0deg)';
+    }, { passive: true });
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden && rafId) {
+        cancelAnimationFrame(rafId);
+        rafId = null;
+      } else if (!document.hidden && !rafId && !prefersReducedMotion) {
+        drawParticles();
+      }
+    });
+
+    initParticles();
+  </script>
+</body>
+</html>
