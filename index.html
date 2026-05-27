@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+=<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
@@ -325,14 +325,26 @@
     }
 
     .signature strong {
-      display: block;
-      margin-top: 8px;
+      display: inline-block;
+      margin-top: 12px;
+      padding: 8px 18px 10px;
+      border-radius: 999px;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       font-style: normal;
       font-weight: 1000;
-      color: #fff;
-      font-size: 1.15em;
-      letter-spacing: -0.03em;
+      color: #fff8d8;
+      font-size: clamp(1.55rem, 8vw, 3.4rem);
+      line-height: 1.05;
+      letter-spacing: -0.045em;
+      background:
+        linear-gradient(90deg, rgba(255,241,184,0.14), rgba(189,178,255,0.14), rgba(245,166,207,0.12));
+      border: 1px solid rgba(255,241,184,0.22);
+      box-shadow:
+        0 14px 34px rgba(0,0,0,0.22),
+        0 0 18px rgba(255,241,184,0.16);
+      text-shadow:
+        0 0 10px rgba(255,241,184,0.28),
+        0 1px 0 rgba(0,0,0,0.28);
     }
 
     .progress-light {
@@ -350,7 +362,7 @@
 
     body.ready .progress-light {
       opacity: 0.55;
-      animation: journey 68s linear forwards;
+      animation: journey 126s linear forwards;
     }
 
     @keyframes introIn {
@@ -395,6 +407,12 @@
       .message-card { border-radius: 20px; padding: 18px 14px; }
       .subline { line-height: 1.58; }
       .message { line-height: 1.50; }
+      .signature strong {
+        max-width: 100%;
+        padding-inline: 14px;
+        white-space: normal;
+        overflow-wrap: anywhere;
+      }
       .orb.one { width: 140px; height: 140px; left: -78px; }
       .orb.two { width: 170px; height: 170px; right: -90px; }
     }
@@ -425,7 +443,7 @@
       <div class="intro-card">
         <p class="intro-kicker">Un homenaje preparado con cariño</p>
         <h1 class="intro-title">Generación<br>2023 - 2026</h1>
-        <p class="intro-text">Una pequeña travesía entre recuerdos, sueños y gratitud, dedicada a quienes están cerrando una etapa que siempre tendrá un lugar especial.</p>
+        <p class="intro-text">Una pequeña travesía entre recuerdos, sueños y gratitud, dedicada a una generación que está por cerrar una etapa inolvidable y abrir un futuro lleno de esperanza.</p>
         <button class="start-btn" id="startBtn">Iniciar homenaje ✨</button>
       </div>
     </section>
@@ -444,37 +462,37 @@
             </h1>
             <p class="subline">
               <span class="line" style="--d:2">Hoy no solo celebramos un ciclo escolar.</span>
-              <span class="line" style="--d:3">Celebramos cada esfuerzo, cada logro, cada amistad</span>
-              <span class="line" style="--d:4">y todo lo que esta generación deja brillando en la memoria.</span>
+              <span class="line" style="--d:3">Celebramos una historia compartida,</span>
+              <span class="line" style="--d:4">una etapa que se cierra con orgullo, emoción</span>
+              <span class="line" style="--d:5">y un profundo agradecimiento por todo lo vivido.</span>
             </p>
           </div>
         </section>
 
         <section class="scene" data-scene="1">
           <div class="scene-inner">
-            <div class="eyebrow"><span>🌙</span><span>Un camino que deja huella</span></div>
-            <h2>
-              <span class="line" style="--d:0">Cada paso cuenta</span>
-            </h2>
-            <p class="subline">
-              <span class="line" style="--d:1">Durante estos años aprendieron mucho más que lecciones.</span>
-              <span class="line" style="--d:2">Aprendieron a levantarse, a confiar, a convivir,</span>
-              <span class="line" style="--d:3">a descubrir quiénes son y a mirar hacia adelante</span>
-              <span class="line" style="--d:4">con la esperanza de construir algo propio y verdadero.</span>
-            </p>
+            <div class="eyebrow"><span>🌙</span><span>Un momento que permanecerá</span></div>
+            <div class="message-card">
+              <p class="message">
+                <span class="line" style="--d:0">Hoy llega el momento de cerrar una etapa muy importante en sus vidas,</span>
+                <span class="line" style="--d:1">una etapa llena de aprendizajes, retos, alegrías,</span>
+                <span class="line" style="--d:2">experiencias inolvidables y momentos</span>
+                <span class="line" style="--d:3">que quedarán para siempre en nuestra memoria.</span>
+              </p>
+            </div>
           </div>
         </section>
 
         <section class="scene" data-scene="2">
           <div class="scene-inner">
-            <div class="eyebrow"><span>💫</span><span>Mensaje con cariño</span></div>
+            <div class="eyebrow"><span>💫</span><span>Gracias por permitirme acompañarlos</span></div>
             <div class="message-card">
               <p class="message">
-                <span class="line" style="--d:0">Les deseo el mejor de los éxitos en todo lo que emprendan.</span>
-                <span class="line" style="--d:1">Que nunca pierdan la ilusión de soñar en grande,</span>
-                <span class="line" style="--d:2">que tengan la valentía de intentarlo una y otra vez,</span>
-                <span class="line" style="--d:3">y que cada meta alcanzada les recuerde</span>
-                <span class="line" style="--d:4">que son capaces de llegar mucho más lejos de lo que imaginan.</span>
+                <span class="line" style="--d:0">Quiero agradecerles profundamente</span>
+                <span class="line" style="--d:1">por haberme permitido acompañarlos</span>
+                <span class="line" style="--d:2">durante estos años de bachillerato.</span>
+                <span class="line" style="--d:3">Cada uno de ustedes dejó una huella especial,</span>
+                <span class="line" style="--d:4">no solo dentro del aula, sino también en mi corazón.</span>
               </p>
             </div>
           </div>
@@ -482,34 +500,82 @@
 
         <section class="scene" data-scene="3">
           <div class="scene-inner">
-            <div class="eyebrow"><span>🌟</span><span>Para lo que viene</span></div>
-            <h2>
-              <span class="line" style="--d:0">Que la vida los encuentre preparados</span>
-            </h2>
-            <p class="subline">
-              <span class="line" style="--d:1">Ojalá encuentren caminos llenos de oportunidades,</span>
-              <span class="line" style="--d:2">personas que los impulsen, momentos que los inspiren</span>
-              <span class="line" style="--d:3">y razones para seguir creciendo con humildad, alegría</span>
-              <span class="line" style="--d:4">y con esa luz única que cada uno lleva dentro.</span>
-            </p>
+            <div class="eyebrow"><span>🌠</span><span>Más allá de las clases</span></div>
+            <div class="message-card">
+              <p class="message">
+                <span class="line" style="--d:0">Más allá de las tareas, los proyectos y las clases,</span>
+                <span class="line" style="--d:1">tuvimos la oportunidad de convivir, reír,</span>
+                <span class="line" style="--d:2">aprender juntos y crecer como personas.</span>
+                <span class="line" style="--d:3">Eso es lo que hace verdaderamente especial</span>
+                <span class="line" style="--d:4">todo lo que hoy estamos recordando.</span>
+              </p>
+            </div>
           </div>
         </section>
 
         <section class="scene" data-scene="4">
           <div class="scene-inner">
-            <div class="eyebrow"><span>♥</span><span>Con gratitud</span></div>
-            <h2>
-              <span class="line" style="--d:0">Gracias por formar parte de esta historia</span>
-            </h2>
-            <p class="subline">
-              <span class="line" style="--d:1">Que esta despedida no sea un final,</span>
-              <span class="line" style="--d:2">sino el comienzo de todo lo hermoso que está por venir.</span>
-              <span class="line" style="--d:3">Lleven siempre con orgullo lo vivido, lo aprendido</span>
-              <span class="line" style="--d:4">y el cariño de quienes creímos en ustedes.</span>
-            </p>
+            <div class="eyebrow"><span>🌟</span><span>Orgullo por lo que son y serán</span></div>
+            <div class="message-card">
+              <p class="message">
+                <span class="line" style="--d:0">Me siento orgulloso de ver en quiénes se están convirtiendo.</span>
+                <span class="line" style="--d:1">Sé que cada uno tiene sueños, metas e ilusiones</span>
+                <span class="line" style="--d:2">que poco a poco irán alcanzando</span>
+                <span class="line" style="--d:3">con esfuerzo, disciplina y dedicación.</span>
+                <span class="line" style="--d:4">Nunca dejen de creer en ustedes mismos,</span>
+                <span class="line" style="--d:5">porque son capaces de lograr cosas extraordinarias.</span>
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="scene" data-scene="5">
+          <div class="scene-inner">
+            <div class="eyebrow"><span>🕊️</span><span>Mis mejores deseos para ustedes</span></div>
+            <div class="message-card">
+              <p class="message">
+                <span class="line" style="--d:0">Les deseo el mayor de los éxitos</span>
+                <span class="line" style="--d:1">en su vida profesional y personal.</span>
+                <span class="line" style="--d:2">Que encuentren felicidad en cada paso que den,</span>
+                <span class="line" style="--d:3">que nunca falten las ganas de superarse</span>
+                <span class="line" style="--d:4">y que siempre tengan la fortaleza</span>
+                <span class="line" style="--d:5">para levantarse ante cualquier dificultad.</span>
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="scene" data-scene="6">
+          <div class="scene-inner">
+            <div class="eyebrow"><span>🚀</span><span>El futuro les pertenece</span></div>
+            <div class="message-card">
+              <p class="message">
+                <span class="line" style="--d:0">Recuerden que los sueños sí se cumplen</span>
+                <span class="line" style="--d:1">cuando se trabaja con pasión y perseverancia.</span>
+                <span class="line" style="--d:2">No tengan miedo de luchar por aquello que desean;</span>
+                <span class="line" style="--d:3">el futuro les pertenece.</span>
+                <span class="line" style="--d:4">Confíen en su camino, en su talento</span>
+                <span class="line" style="--d:5">y en la grandeza que cada uno lleva dentro.</span>
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="scene" data-scene="7">
+          <div class="scene-inner">
+            <div class="eyebrow"><span>♥</span><span>Con gratitud eterna</span></div>
+            <div class="message-card">
+              <p class="message">
+                <span class="line" style="--d:0">Gracias por todas las experiencias compartidas,</span>
+                <span class="line" style="--d:1">por su confianza, su cariño</span>
+                <span class="line" style="--d:2">y por hacer de estos 3 años algo verdaderamente especial.</span>
+                <span class="line" style="--d:3">Siempre los recordaré con mucho aprecio, cariño y admiración.</span>
+                <span class="line" style="--d:4">En mi corazón tienen un lugar muy especial.</span>
+              </p>
+            </div>
             <p class="signature">
-              <span class="line" style="--d:5">Son los deseos de su amigo y maestro</span>
-              <strong class="line" style="--d:6"> Lic. Erick Carrillo</strong>
+              <span class="line" style="--d:5">Su Maestro y Amigo</span>
+              <strong class="line" style="--d:6">Erick Carrillo</strong>
             </p>
           </div>
         </section>
@@ -550,7 +616,7 @@
       let last = 0;
       let confettiAccumulator = 0;
 
-      const sceneDurations = [12500, 14000, 16000, 14500, 22000];
+      const sceneDurations = [12000, 14000, 14500, 14500, 17000, 17000, 16000, 21000];
 
       function setVh() {
         document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
