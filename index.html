@@ -2,142 +2,90 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#020615" />
-  <title>Generación 2023 - 2026 | Homenaje inmersivo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#050817" />
+  <title>Generación 2023 - 2026 | Homenaje</title>
   <style>
     :root {
-      --rose: #f2a6d9;
-      --lavender: #b9a8ff;
-      --moon: #fff0bd;
-      --sky: #9ee8ff;
-      --mint: #a9f6d3;
-      --peach: #ffd1a8;
-      --deep: #020615;
-      --glass: rgba(6, 10, 30, 0.70);
-      --soft-white: rgba(255, 255, 255, 0.86);
-      --scene-x: 0%;
-      --scene-y: 0%;
-      --scene-scale: 1;
+      --rose: #f5a6cf;
+      --lavender: #bdb2ff;
+      --moon: #fff1b8;
+      --sky: #9adfff;
+      --mint: #b8f7d4;
+      --ink: #050817;
+      --glass: rgba(9, 13, 36, 0.78);
+      --line: rgba(255,255,255,0.18);
+      --soft: rgba(255,255,255,0.86);
+      --vh: 1vh;
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { height: 100%; }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { width: 100%; min-height: 100%; }
     body {
-      min-height: 100%;
       overflow: hidden;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #020615;
       color: white;
+      background: #050817;
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
     }
 
-    .page {
-      position: relative;
-      min-height: 100svh;
-      display: grid;
-      place-items: center;
-      padding: max(14px, env(safe-area-inset-top)) 12px max(14px, env(safe-area-inset-bottom));
-      isolation: isolate;
-      overflow: hidden;
-      background:
-        radial-gradient(circle at calc(16% + var(--scene-x)) calc(18% + var(--scene-y)), rgba(185,168,255,0.16), transparent 34%),
-        radial-gradient(circle at calc(86% - var(--scene-x)) 20%, rgba(158,232,255,0.10), transparent 31%),
-        radial-gradient(circle at 52% 86%, rgba(242,166,217,0.10), transparent 40%),
-        linear-gradient(145deg, #060a20 0%, #020615 50%, #00030b 100%);
-    }
+    body.ready { cursor: none; }
 
-    .page::before {
-      content: "";
-      position: fixed;
-      inset: -10%;
-      z-index: -3;
-      pointer-events: none;
-      opacity: 0.42;
-      background-image:
-        radial-gradient(circle, rgba(255,255,255,0.45) 0 0.65px, transparent 1.5px),
-        radial-gradient(circle, rgba(158,232,255,0.22) 0 0.9px, transparent 1.9px),
-        radial-gradient(circle, rgba(255,240,189,0.18) 0 0.8px, transparent 1.8px);
-      background-size: 112px 112px, 174px 174px, 248px 248px;
-      background-position: 0 0, 44px 28px, -22px 68px;
-      animation: starDrift 118s linear infinite, starDepth 24s ease-in-out infinite alternate;
-      transform: translate3d(calc(var(--scene-x) * -0.10), calc(var(--scene-y) * -0.10), 0) scale(1.08);
-    }
-
-    .page::after {
-      content: "";
-      position: fixed;
-      inset: -20%;
-      z-index: -2;
-      pointer-events: none;
-      background:
-        radial-gradient(ellipse at 50% 112%, rgba(185,168,255,0.13), transparent 42%),
-        radial-gradient(ellipse at 50% -12%, rgba(158,232,255,0.08), transparent 38%),
-        conic-gradient(from 210deg at 50% 50%, transparent, rgba(242,166,217,0.045), transparent, rgba(158,232,255,0.040), transparent);
-      opacity: 0.62;
-      animation: cosmicBreath 28s ease-in-out infinite alternate, galaxyTurn 96s linear infinite;
-      transform: translate3d(calc(var(--scene-x) * 0.08), calc(var(--scene-y) * 0.08), 0);
-    }
-
-    .cosmic-dust {
-      position: fixed;
-      inset: -26%;
-      z-index: -4;
-      pointer-events: none;
-      background:
-        linear-gradient(112deg, transparent 18%, rgba(158,232,255,0.050) 42%, rgba(242,166,217,0.040) 54%, transparent 76%),
-        linear-gradient(70deg, transparent 18%, rgba(255,240,189,0.030) 44%, transparent 72%);
-      filter: blur(24px);
-      opacity: 0.62;
-      transform: rotate(-8deg);
-      animation: dustFloat 46s ease-in-out infinite alternate;
-    }
-
-    canvas#particles, canvas#confetti, canvas#comets {
+    .app {
       position: fixed;
       inset: 0;
-      width: 100%;
-      height: 100%;
+      min-height: calc(var(--vh) * 100);
+      overflow: hidden;
+      isolation: isolate;
+      background:
+        radial-gradient(circle at 20% 18%, rgba(189,178,255,0.20), transparent 34%),
+        radial-gradient(circle at 82% 22%, rgba(154,223,255,0.12), transparent 32%),
+        radial-gradient(circle at 52% 96%, rgba(245,166,207,0.14), transparent 42%),
+        linear-gradient(160deg, #090d28 0%, #050817 48%, #02040b 100%);
+    }
+
+    .space, .nebula, .horizon, canvas {
+      position: fixed;
+      inset: 0;
       pointer-events: none;
     }
-    canvas#particles { z-index: -4; }
-    canvas#comets { z-index: -1; opacity: 0.42; }
-    canvas#confetti { z-index: 8; opacity: 0; transition: opacity 2000ms ease; }
-    body.ready canvas#confetti { opacity: 0.26; }
 
-    .aurora {
-      position: fixed;
-      inset: -42%;
+    .space {
       z-index: -5;
-      background: conic-gradient(
-        from 90deg,
-        rgba(185,168,255,0.12),
-        rgba(158,232,255,0.075),
-        rgba(255,240,189,0.048),
-        rgba(169,246,211,0.048),
-        rgba(242,166,217,0.09),
-        rgba(185,168,255,0.12)
-      );
-      filter: blur(118px);
-      opacity: 0.34;
-      animation: auroraSpin 140s linear infinite;
+      opacity: 0.72;
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,0.52) 0 0.7px, transparent 1.5px),
+        radial-gradient(circle, rgba(154,223,255,0.34) 0 0.8px, transparent 1.7px),
+        radial-gradient(circle, rgba(255,241,184,0.26) 0 0.8px, transparent 1.7px);
+      background-size: 92px 92px, 146px 146px, 230px 230px;
+      animation: starsMove 90s linear infinite;
+      transform: translateZ(0);
     }
 
-    .halo {
-      position: fixed;
-      width: 76vmax;
-      aspect-ratio: 1;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,240,189,0.040), rgba(185,168,255,0.052) 25%, transparent 68%);
-      filter: blur(56px);
-      top: 52%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: -3;
-      animation: breathe 24s ease-in-out infinite alternate;
+    .nebula {
+      z-index: -4;
+      opacity: 0.50;
+      background:
+        radial-gradient(ellipse at 18% 76%, rgba(245,166,207,0.12), transparent 44%),
+        radial-gradient(ellipse at 78% 28%, rgba(189,178,255,0.12), transparent 40%),
+        linear-gradient(125deg, transparent 18%, rgba(154,223,255,0.050) 42%, rgba(255,241,184,0.040) 55%, transparent 74%);
+      animation: nebulaPan 54s ease-in-out infinite alternate;
+      transform: translateZ(0);
     }
+
+    .horizon {
+      z-index: -3;
+      top: auto;
+      height: 42%;
+      background: linear-gradient(0deg, rgba(245,166,207,0.13), transparent 68%);
+      opacity: 0.55;
+      animation: horizonPulse 16s ease-in-out infinite alternate;
+    }
+
+    #fx { z-index: -2; opacity: 0.76; }
+    #confetti { z-index: 9; opacity: 0; transition: opacity 1600ms ease; }
+    body.ready #confetti { opacity: 0.25; }
 
     .intro {
       position: fixed;
@@ -145,60 +93,56 @@
       z-index: 20;
       display: grid;
       place-items: center;
-      padding: 22px;
+      padding: max(18px, env(safe-area-inset-top)) 16px max(18px, env(safe-area-inset-bottom));
       background:
-        radial-gradient(circle at 50% 48%, rgba(255,255,255,0.055), transparent 23%),
-        radial-gradient(circle at 50% 76%, rgba(185,168,255,0.09), transparent 38%),
-        linear-gradient(145deg, #05091d, #00030b);
-      transition: opacity 1800ms ease, visibility 1800ms ease;
+        radial-gradient(circle at 50% 42%, rgba(189,178,255,0.20), transparent 38%),
+        linear-gradient(160deg, rgba(5,8,23,0.96), rgba(2,4,11,0.99));
+      transition: opacity 1100ms ease, visibility 1100ms ease;
     }
-    .intro.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+
+    .intro.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
 
     .intro-card {
-      width: min(730px, 92vw);
+      width: min(620px, 92vw);
       text-align: center;
-      padding: clamp(28px, 6vw, 58px);
-      border-radius: 34px;
-      background: rgba(255,255,255,0.044);
-      border: 1px solid rgba(255,255,255,0.12);
-      box-shadow: 0 0 20px rgba(185,168,255,0.10), inset 0 0 22px rgba(255,255,255,0.032);
-      backdrop-filter: blur(18px);
-      animation: introArrive 2.6s cubic-bezier(.2,1,.2,1) both, introFloat 9s ease-in-out infinite alternate;
+      padding: clamp(26px, 7vw, 52px) clamp(20px, 6vw, 48px);
+      border-radius: 30px;
+      background: rgba(9, 13, 36, 0.74);
+      border: 1px solid rgba(255,255,255,0.18);
+      box-shadow: 0 22px 70px rgba(0,0,0,0.38), inset 0 0 0 1px rgba(255,255,255,0.05);
+      animation: introIn 1600ms cubic-bezier(.2,.85,.2,1) both;
+      transform: translateZ(0);
     }
 
-    .intro-kicker, .scene-kicker {
+    .intro-kicker {
       color: var(--moon);
-      font-weight: 850;
+      font-size: clamp(0.82rem, 3vw, 1rem);
+      font-weight: 800;
       letter-spacing: 0.20em;
       text-transform: uppercase;
-      font-size: clamp(0.72rem, 2.1vw, 0.98rem);
-      text-shadow: 0 0 6px rgba(255,240,189,0.22);
-    }
-
-    .intro-title, .scene-title, .teacher-name {
-      background: linear-gradient(90deg, var(--rose), var(--sky), var(--moon), var(--lavender), var(--rose));
-      background-size: 360% 100%;
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      animation: rainbowText 34s linear infinite;
-      text-shadow: 0 0 7px rgba(255,255,255,0.10);
+      opacity: 0.92;
     }
 
     .intro-title {
-      margin-top: 18px;
-      font-size: clamp(2.5rem, 10vw, 5.8rem);
-      line-height: 0.92;
+      margin-top: 16px;
+      font-size: clamp(2.5rem, 13vw, 5.6rem);
+      line-height: 0.94;
+      letter-spacing: -0.05em;
       font-weight: 1000;
+      color: #fff;
+      text-shadow: 0 0 18px rgba(189,178,255,0.24);
     }
 
     .intro-text {
-      margin: 22px auto 30px;
-      max-width: 590px;
-      color: rgba(255,255,255,0.82);
-      line-height: 1.72;
-      font-size: clamp(1rem, 2.8vw, 1.18rem);
-      text-wrap: balance;
+      margin: 20px auto 28px;
+      max-width: 510px;
+      color: rgba(255,255,255,0.78);
+      line-height: 1.62;
+      font-size: clamp(1rem, 3.6vw, 1.16rem);
     }
 
     .start-btn {
@@ -206,829 +150,569 @@
       border: 0;
       cursor: pointer;
       border-radius: 999px;
+      padding: 15px 24px;
+      width: min(330px, 100%);
       font-weight: 900;
-      color: #080010;
-      background: linear-gradient(90deg, #fff8df, #ffd1a8, #b9a8ff, #9ee8ff, #fff8df);
-      background-size: 280% 100%;
-      box-shadow: 0 0 8px rgba(255,255,255,0.12), 0 0 18px rgba(185,168,255,0.10);
-      animation: rainbowText 24s linear infinite, buttonPulse 8s ease-in-out infinite alternate;
-      transition: transform 260ms ease, filter 260ms ease;
+      font-size: clamp(1rem, 3.8vw, 1.12rem);
+      color: #070815;
+      background: linear-gradient(90deg, #fff5c9, #cfc5ff, #bcecff, #ffd0e8);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.32), 0 0 18px rgba(189,178,255,0.20);
+      transition: transform 180ms ease, opacity 180ms ease;
       touch-action: manipulation;
-      padding: 15px 30px;
-      font-size: clamp(1rem, 3vw, 1.15rem);
-    }
-    .start-btn:active { transform: scale(0.96); }
-
-    .stage {
-      position: relative;
-      width: min(1130px, 94vw);
-      min-height: min(780px, 92svh);
-      display: grid;
-      place-items: center;
-      perspective: 1200px;
-      transform: translate3d(var(--scene-x), var(--scene-y), 0) scale(var(--scene-scale));
-      transition: transform 5200ms cubic-bezier(.18,.82,.2,1);
     }
 
-    .sign {
+    .start-btn:active { transform: scale(0.97); }
+
+    .cinema {
       position: relative;
       width: 100%;
-      min-height: min(780px, 92svh);
+      min-height: calc(var(--vh) * 100);
       display: grid;
-      grid-template-rows: auto 1fr;
       place-items: center;
-      text-align: center;
-      padding: clamp(26px, 5vw, 60px) clamp(16px, 4.5vw, 58px);
-      border-radius: clamp(30px, 5vw, 56px);
-      background:
-        linear-gradient(180deg, rgba(255,255,255,0.046), transparent 18%),
-        radial-gradient(circle at 50% 0%, rgba(185,168,255,0.078), transparent 42%),
-        var(--glass);
-      border: 1px solid rgba(255,255,255,0.13);
-      box-shadow:
-        0 0 0 1px rgba(255,255,255,0.040),
-        0 0 16px rgba(255,255,255,0.045),
-        0 0 40px rgba(185,168,255,0.095),
-        0 0 72px rgba(158,232,255,0.055),
-        inset 0 0 34px rgba(255,255,255,0.033);
-      backdrop-filter: blur(18px);
-      overflow: hidden;
-      transform-style: preserve-3d;
-      animation: signReveal 3s 0.45s cubic-bezier(.2,1,.2,1) both, signGlow 18s ease-in-out infinite alternate, panoramicCard 26s ease-in-out infinite alternate;
-      will-change: transform;
+      padding: max(16px, env(safe-area-inset-top)) 14px max(16px, env(safe-area-inset-bottom));
+      transform: translateZ(0);
     }
 
-    .sign::before {
+    .frame {
+      position: relative;
+      width: min(980px, 94vw);
+      min-height: min(680px, calc(var(--vh) * 88));
+      display: grid;
+      place-items: center;
+      padding: clamp(24px, 6vw, 64px) clamp(18px, 5vw, 58px);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: clamp(24px, 5vw, 44px);
+      background: linear-gradient(180deg, rgba(255,255,255,0.070), rgba(255,255,255,0.030)), var(--glass);
+      box-shadow: 0 26px 80px rgba(0,0,0,0.38), inset 0 0 0 1px rgba(255,255,255,0.045);
+      overflow: hidden;
+    }
+
+    .frame::before {
       content: "";
       position: absolute;
       inset: 12px;
-      border-radius: clamp(22px, 4vw, 44px);
-      border: 1px solid rgba(255,255,255,0.13);
-      background: linear-gradient(90deg, transparent, rgba(255,240,189,0.070), transparent) 0 0 / 280% 100% no-repeat;
-      animation: borderLight 36s linear infinite;
+      border-radius: inherit;
+      border: 1px solid rgba(255,255,255,0.10);
       pointer-events: none;
     }
 
-    .sign::after {
-      content: "";
+    .orb {
       position: absolute;
-      inset: -4px;
-      z-index: -1;
-      border-radius: inherit;
-      background: linear-gradient(90deg, var(--rose), var(--sky), var(--moon), var(--mint), var(--lavender), var(--rose));
-      background-size: 360% 100%;
-      filter: blur(28px);
-      opacity: 0.10;
-      animation: rainbowText 44s linear infinite;
-    }
-
-    .top-label {
-      position: relative;
-      z-index: 2;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      margin-bottom: 18px;
-      padding: 10px 18px;
       border-radius: 999px;
-      background: rgba(255,255,255,0.050);
-      border: 1px solid rgba(255,255,255,0.12);
-      box-shadow: 0 0 14px rgba(255,240,189,0.075), inset 0 0 12px rgba(255,255,255,0.032);
-      color: var(--moon);
-      font-weight: 900;
-      letter-spacing: 0.10em;
-      text-transform: uppercase;
-      font-size: clamp(0.66rem, 2vw, 0.88rem);
-      text-shadow: 0 0 6px rgba(255,240,189,0.22);
-      animation: labelDrift 10s ease-in-out infinite alternate;
+      opacity: 0.38;
+      transform: translateZ(0);
+      animation: orbFloat 18s ease-in-out infinite alternate;
     }
-
-    .mini-heart { color: var(--rose); animation: heartbeat 4.8s infinite; text-shadow: 0 0 5px rgba(242,166,217,0.22); }
-
-    .scene-wrap {
-      position: relative;
-      z-index: 2;
-      width: 100%;
-      min-height: 530px;
-      display: grid;
-      place-items: center;
-    }
+    .orb.one { width: 180px; height: 180px; left: -70px; top: 12%; background: radial-gradient(circle, rgba(189,178,255,0.22), transparent 68%); }
+    .orb.two { width: 220px; height: 220px; right: -95px; bottom: 4%; background: radial-gradient(circle, rgba(154,223,255,0.16), transparent 68%); animation-delay: -6s; }
 
     .scene {
-      grid-area: 1 / 1;
-      width: min(950px, 100%);
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: clamp(24px, 6vw, 70px) clamp(18px, 5vw, 66px);
+      text-align: center;
       opacity: 0;
       visibility: hidden;
+      transform: translate3d(0, 20px, 0) scale(0.985);
+      transition: opacity 1800ms ease, transform 2200ms cubic-bezier(.2,.8,.2,1), visibility 0s linear 1800ms;
       pointer-events: none;
-      transform: translate3d(12vw, 28px, 0) scale(0.965) rotateY(-2deg);
-      filter: blur(13px);
-      transition:
-        opacity 2600ms ease,
-        transform 3600ms cubic-bezier(.16,.84,.2,1),
-        filter 2600ms ease,
-        visibility 2600ms ease;
     }
 
-    .scene.is-active {
+    .scene.active {
       opacity: 1;
       visibility: visible;
-      transform: translate3d(0, 0, 0) scale(1) rotateY(0deg);
-      filter: blur(0);
+      transform: translate3d(0, 0, 0) scale(1);
+      transition-delay: 0s;
     }
 
-    .scene.is-leaving-left {
-      transform: translate3d(-12vw, -12px, 0) scale(1.025) rotateY(2deg);
-      opacity: 0;
-      filter: blur(10px);
-    }
+    .scene.exit-up { transform: translate3d(0, -22px, 0) scale(1.01); }
+    .scene.exit-left { transform: translate3d(-18px, 0, 0) scale(1.005); }
 
-    .scene > * { opacity: 0; transform: translateY(38px) scale(0.985); }
-    .scene.is-active > * { animation: sceneElementIn 3.2s cubic-bezier(.2,1,.2,1) both; }
-    .scene.is-active > *:nth-child(1) { animation-delay: 0.15s; }
-    .scene.is-active > *:nth-child(2) { animation-delay: 1.05s; }
-    .scene.is-active > *:nth-child(3) { animation-delay: 1.95s; }
-    .scene.is-active > *:nth-child(4) { animation-delay: 2.85s; }
-    .scene.is-active > *:nth-child(5) { animation-delay: 3.65s; }
-
-    .scene-title {
-      margin-top: 14px;
-      font-size: clamp(2.55rem, 10.6vw, 8.2rem);
-      line-height: 0.88;
-      font-weight: 1000;
-      letter-spacing: -0.05em;
-      text-wrap: balance;
-    }
-
-    .scene-subtitle {
-      margin: clamp(18px, 3vw, 30px) auto 0;
-      max-width: 840px;
-      color: rgba(255,255,255,0.82);
-      font-size: clamp(1.02rem, 2.65vw, 1.45rem);
-      line-height: 1.72;
-      text-wrap: balance;
-      text-shadow: 0 0 5px rgba(255,255,255,0.10);
-    }
-
-    .divider {
-      width: min(430px, 64vw);
-      height: 2px;
-      margin: clamp(22px, 4vw, 36px) auto;
-      border-radius: 999px;
-      background: linear-gradient(90deg, transparent, var(--rose), var(--sky), var(--moon), transparent);
-      box-shadow: 0 0 6px rgba(158,232,255,0.10);
-      transform-origin: center;
-    }
-
-    .message-box {
+    .scene-inner {
+      width: 100%;
+      max-width: 850px;
       position: relative;
-      margin-inline: auto;
-      width: min(910px, 100%);
-      padding: clamp(20px, 4vw, 36px);
-      border-radius: 30px;
-      background: rgba(255,255,255,0.047);
-      border: 1px solid rgba(255,255,255,0.12);
-      box-shadow: inset 0 0 20px rgba(255,255,255,0.030), 0 0 20px rgba(185,168,255,0.052);
-      overflow: hidden;
+      z-index: 2;
     }
 
-    .message-box::before {
-      content: "";
-      position: absolute;
-      inset: -60% -20%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.042), transparent);
-      transform: rotate(12deg) translateX(-80%);
-      animation: softSweep 14s ease-in-out infinite;
-      pointer-events: none;
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: clamp(18px, 5vw, 30px);
+      padding: 10px 17px;
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.055);
+      color: var(--moon);
+      font-size: clamp(0.72rem, 2.5vw, 0.92rem);
+      font-weight: 850;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    h1, h2 {
+      font-weight: 1000;
+      letter-spacing: -0.055em;
+      text-wrap: balance;
+    }
+
+    h1 {
+      font-size: clamp(3rem, 15vw, 8rem);
+      line-height: 0.90;
+      color: #fff;
+      text-shadow: 0 0 18px rgba(154,223,255,0.22), 0 0 30px rgba(245,166,207,0.14);
+    }
+
+    h2 {
+      font-size: clamp(2.05rem, 10vw, 5.6rem);
+      line-height: 0.96;
+      color: #fff;
+      text-shadow: 0 0 16px rgba(189,178,255,0.20);
+    }
+
+    .subline {
+      margin: clamp(18px, 5vw, 28px) auto 0;
+      max-width: 720px;
+      font-size: clamp(1.02rem, 4vw, 1.55rem);
+      line-height: 1.55;
+      color: var(--soft);
+      text-wrap: balance;
+    }
+
+    .message-card {
+      margin: clamp(18px, 5vw, 30px) auto 0;
+      max-width: 790px;
+      padding: clamp(18px, 5vw, 30px);
+      border-radius: 24px;
+      background: rgba(255,255,255,0.050);
+      border: 1px solid rgba(255,255,255,0.12);
     }
 
     .message {
-      position: relative;
-      font-size: clamp(1.03rem, 2.74vw, 1.72rem);
-      line-height: 1.66;
-      font-weight: 680;
-      color: var(--soft-white);
+      font-size: clamp(1.08rem, 4.5vw, 2rem);
+      line-height: 1.55;
+      font-weight: 720;
+      color: rgba(255,255,255,0.88);
       text-wrap: balance;
-      text-shadow: 0 0 5px rgba(255,255,255,0.15), 0 0 9px rgba(158,232,255,0.07);
     }
 
-    .reveal-line {
+    .line {
       display: block;
       opacity: 0;
-      transform: translateY(18px);
-      filter: blur(8px);
+      transform: translate3d(0, 16px, 0);
     }
-    .scene.is-active .reveal-line { animation: revealLine 2.6s cubic-bezier(.18,.84,.2,1) both; }
-    .scene.is-active .reveal-line:nth-child(1) { animation-delay: 2.1s; }
-    .scene.is-active .reveal-line:nth-child(2) { animation-delay: 4.0s; }
-    .scene.is-active .reveal-line:nth-child(3) { animation-delay: 5.9s; }
-    .scene.is-active .reveal-line:nth-child(4) { animation-delay: 7.8s; }
-    .scene.is-active .reveal-line:nth-child(5) { animation-delay: 9.7s; }
 
-    .highlight { color: #fff6bd; text-shadow: 0 0 6px rgba(255,240,189,0.25), 0 0 10px rgba(255,209,168,0.12); }
+    .scene.active .line {
+      animation: lineIn 1250ms ease forwards;
+      animation-delay: calc(var(--d, 0) * 520ms + 420ms);
+    }
 
-    .teacher-line {
-      margin-top: clamp(18px, 3.5vw, 34px);
-      color: rgba(255,255,255,0.80);
+    .word-soft {
+      color: var(--moon);
+      text-shadow: 0 0 10px rgba(255,241,184,0.22);
+    }
+
+    .signature {
+      margin-top: clamp(22px, 6vw, 42px);
       font-family: Georgia, "Times New Roman", serif;
       font-style: italic;
-      font-size: clamp(1.02rem, 2.8vw, 1.85rem);
-      line-height: 1.62;
-      text-wrap: balance;
+      font-size: clamp(1.08rem, 4.6vw, 2.25rem);
+      line-height: 1.42;
+      color: rgba(255,241,184,0.92);
     }
 
-    .teacher-name {
-      display: inline-block;
-      margin-top: 12px;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(2rem, 7vw, 5.2rem);
-      font-weight: 900;
-      line-height: 1;
-      animation: rainbowText 30s linear infinite, nameFloat 7s ease-in-out infinite alternate;
+    .signature strong {
+      display: block;
+      margin-top: 8px;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-style: normal;
+      font-weight: 1000;
+      color: #fff;
+      font-size: 1.15em;
+      letter-spacing: -0.03em;
     }
 
-    .floating-word, .magic-glyph, .beam, .corner, .orb, .trail { position: absolute; pointer-events: none; z-index: 1; }
-
-    .orb {
-      width: clamp(110px, 22vw, 240px);
-      aspect-ratio: 1;
-      border-radius: 50%;
-      border: 1px solid rgba(255,255,255,0.055);
-      opacity: 0.36;
-      filter: blur(0.2px);
-      animation: orbit 36s ease-in-out infinite alternate;
-    }
-    .orb.o1 { top: 8%; left: -6%; border-color: rgba(158,232,255,0.10); }
-    .orb.o2 { right: -8%; bottom: 8%; width: clamp(140px, 28vw, 300px); border-color: rgba(242,166,217,0.10); animation-delay: 7s; }
-
-    .trail {
-      width: 160px;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(255,240,189,0.22), transparent);
-      opacity: 0.28;
-      transform: rotate(-22deg);
-      animation: trailCross 18s ease-in-out infinite;
-    }
-    .trail.t1 { top: 20%; left: 8%; }
-    .trail.t2 { bottom: 24%; right: 4%; animation-delay: 7s; }
-
-    .floating-word {
-      color: rgba(255,255,255,0.12);
-      font-size: clamp(0.78rem, 2vw, 1.12rem);
-      font-weight: 900;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      text-shadow: 0 0 5px currentColor;
-      animation: floatWord 24s ease-in-out infinite alternate;
-    }
-    .w1 { top: 9%; left: 8%; color: rgba(158,232,255,0.14); animation-delay: 0s; }
-    .w2 { top: 13%; right: 8%; color: rgba(255,240,189,0.13); animation-delay: 4s; }
-    .w3 { bottom: 11%; left: 9%; color: rgba(242,166,217,0.13); animation-delay: 7s; }
-    .w4 { bottom: 13%; right: 8%; color: rgba(169,246,211,0.12); animation-delay: 10s; }
-
-    .magic-glyph {
-      font-size: clamp(1.15rem, 4vw, 3rem);
-      color: rgba(255,240,189,0.17);
-      text-shadow: 0 0 7px rgba(255,240,189,0.09);
-      animation: glyphFloat 24s ease-in-out infinite alternate;
-    }
-    .g1 { top: 18%; left: 18%; animation-delay: 0s; }
-    .g2 { top: 22%; right: 18%; color: rgba(158,232,255,0.17); animation-delay: 5s; }
-    .g3 { bottom: 18%; left: 50%; color: rgba(242,166,217,0.16); animation-delay: 9s; }
-
-    .beam {
-      top: -55%;
-      left: -40%;
-      width: 180%;
-      height: 160px;
-      transform: rotate(-17deg);
-      background: linear-gradient(90deg, transparent, rgba(255,240,189,0.042), transparent);
-      filter: blur(3px);
-      animation: beamSweep 32s 3s infinite ease-in-out;
+    .progress-light {
+      position: absolute;
+      left: 50%;
+      bottom: max(18px, env(safe-area-inset-bottom));
+      width: min(220px, 46vw);
+      height: 2px;
+      transform: translateX(-50%) scaleX(0);
+      transform-origin: left center;
+      border-radius: 999px;
+      background: linear-gradient(90deg, transparent, rgba(255,241,184,0.55), transparent);
+      opacity: 0;
     }
 
-    .corner {
-      width: clamp(42px, 8vw, 78px);
-      height: clamp(42px, 8vw, 78px);
-      border: 3px solid transparent;
-      filter: drop-shadow(0 0 4px rgba(255,255,255,0.12));
-      animation: cornerBlink 10s infinite alternate;
+    body.ready .progress-light {
+      opacity: 0.55;
+      animation: journey 68s linear forwards;
     }
-    .tl { top: 24px; left: 24px; border-top-color: var(--rose); border-left-color: var(--sky); border-radius: 20px 0 0 0; }
-    .tr { top: 24px; right: 24px; border-top-color: var(--moon); border-right-color: var(--mint); border-radius: 0 20px 0 0; }
-    .bl { bottom: 24px; left: 24px; border-bottom-color: var(--mint); border-left-color: var(--moon); border-radius: 0 0 0 20px; }
-    .br { bottom: 24px; right: 24px; border-bottom-color: var(--sky); border-right-color: var(--rose); border-radius: 0 0 20px 0; }
 
-    body.scene-0 { --scene-x: -0.8%; --scene-y: 0.2%; --scene-scale: 1.006; }
-    body.scene-1 { --scene-x: 0.9%; --scene-y: -0.6%; --scene-scale: 1.012; }
-    body.scene-2 { --scene-x: -1.0%; --scene-y: -0.9%; --scene-scale: 1.018; }
-    body.scene-3 { --scene-x: 0%; --scene-y: 0.4%; --scene-scale: 1.004; }
-
-    @keyframes auroraSpin { to { transform: rotate(360deg); } }
-    @keyframes breathe { from { transform: translate(-50%, -50%) scale(0.94); opacity: 0.25; } to { transform: translate(-50%, -50%) scale(1.09); opacity: 0.44; } }
-    @keyframes introArrive { from { opacity: 0; transform: translateY(42px) scale(0.94); filter: blur(14px); } to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); } }
-    @keyframes introFloat { from { transform: translateY(0); } to { transform: translateY(-7px); } }
-    @keyframes rainbowText { to { background-position: 360% 0; } }
-    @keyframes buttonPulse { from { filter: brightness(0.94); } to { filter: brightness(1.025); } }
-    @keyframes signReveal { from { opacity: 0; transform: translateY(46px) scale(0.92) rotateX(8deg); filter: blur(14px); } to { opacity: 1; transform: translateY(0) scale(1) rotateX(0); filter: blur(0); } }
-    @keyframes panoramicCard { from { transform: translate3d(-0.9%, 0, 0) rotateY(-0.8deg) rotateX(0.18deg); } to { transform: translate3d(0.9%, -0.45%, 0) rotateY(0.8deg) rotateX(-0.18deg); } }
-    @keyframes signGlow { from { box-shadow: 0 0 16px rgba(255,255,255,0.043), 0 0 38px rgba(185,168,255,0.082), 0 0 68px rgba(158,232,255,0.046), inset 0 0 30px rgba(255,255,255,0.030); } to { box-shadow: 0 0 20px rgba(255,255,255,0.055), 0 0 50px rgba(242,166,217,0.090), 0 0 82px rgba(158,232,255,0.052), inset 0 0 38px rgba(255,255,255,0.038); } }
-    @keyframes borderLight { to { background-position: 280% 0; } }
-    @keyframes heartbeat { 0%, 100% { transform: scale(1); } 45% { transform: scale(1.09); } 70% { transform: scale(0.98); } }
-    @keyframes labelDrift { from { transform: translateY(0); } to { transform: translateY(4px); } }
-    @keyframes floatWord { from { transform: translate3d(0, -10px, 0); opacity: 0.06; } to { transform: translate3d(0, 16px, 0); opacity: 0.16; } }
-    @keyframes glyphFloat { from { transform: translate3d(0, 10px, 0) rotate(-8deg) scale(0.94); opacity: 0.10; } to { transform: translate3d(0, -14px, 0) rotate(8deg) scale(1.06); opacity: 0.32; } }
-    @keyframes beamSweep { 0% { top: -55%; opacity: 0; } 24% { opacity: 0.34; } 62% { top: 120%; opacity: 0.16; } 100% { top: 140%; opacity: 0; } }
-    @keyframes cornerBlink { from { opacity: 0.30; } to { opacity: 0.58; } }
-    @keyframes starDrift { to { background-position: 112px 112px, -130px 202px, 78px -180px; } }
-    @keyframes starDepth { from { filter: brightness(0.86); } to { filter: brightness(1.05); } }
-    @keyframes cosmicBreath { from { opacity: 0.42; transform: scale(1); } to { opacity: 0.62; transform: scale(1.035); } }
-    @keyframes galaxyTurn { to { rotate: 360deg; } }
-    @keyframes dustFloat { from { transform: rotate(-8deg) translate3d(-2%, 0, 0); opacity: 0.42; } to { transform: rotate(-8deg) translate3d(2.5%, -1.2%, 0); opacity: 0.62; } }
-    @keyframes sceneElementIn { from { opacity: 0; transform: translateY(38px) scale(0.985); filter: blur(12px); } to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); } }
-    @keyframes revealLine { from { opacity: 0; transform: translateY(18px); filter: blur(8px); } to { opacity: 1; transform: translateY(0); filter: blur(0); } }
-    @keyframes softSweep { 0%, 18% { transform: rotate(12deg) translateX(-85%); opacity: 0; } 45% { opacity: 1; } 70%, 100% { transform: rotate(12deg) translateX(85%); opacity: 0; } }
-    @keyframes nameFloat { from { transform: translateY(0) scale(1); } to { transform: translateY(-7px) scale(1.01); } }
-    @keyframes orbit { from { transform: translate3d(-7px, 8px, 0) scale(0.96); opacity: 0.20; } to { transform: translate3d(14px, -12px, 0) scale(1.06); opacity: 0.42; } }
-    @keyframes trailCross { 0% { transform: translate3d(-20px, 10px, 0) rotate(-22deg); opacity: 0; } 20% { opacity: 0.22; } 56% { transform: translate3d(80px, -35px, 0) rotate(-22deg); opacity: 0.30; } 100% { transform: translate3d(150px, -65px, 0) rotate(-22deg); opacity: 0; } }
-
-    @media (hover: hover) and (pointer: fine) {
-      .start-btn:hover { transform: translateY(-2px) scale(1.03); filter: brightness(1.04); }
+    @keyframes introIn {
+      from { opacity: 0; transform: translate3d(0, 24px, 0) scale(0.98); }
+      to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+    }
+    @keyframes starsMove {
+      from { background-position: 0 0, 40px 24px, -10px 70px; }
+      to { background-position: 0 900px, 40px 620px, -10px 460px; }
+    }
+    @keyframes nebulaPan {
+      from { transform: translate3d(-2%, -1%, 0) scale(1); }
+      to { transform: translate3d(2%, 1%, 0) scale(1.05); }
+    }
+    @keyframes horizonPulse {
+      from { opacity: 0.38; }
+      to { opacity: 0.62; }
+    }
+    @keyframes orbFloat {
+      from { transform: translate3d(0, -10px, 0); }
+      to { transform: translate3d(0, 18px, 0); }
+    }
+    @keyframes lineIn {
+      to { opacity: 1; transform: translate3d(0, 0, 0); }
+    }
+    @keyframes journey {
+      from { transform: translateX(-50%) scaleX(0); }
+      to { transform: translateX(-50%) scaleX(1); }
     }
 
     @media (max-width: 720px) {
-      .page { padding: max(10px, env(safe-area-inset-top)) 10px max(10px, env(safe-area-inset-bottom)); }
-      .stage { width: 100%; min-height: calc(100svh - 20px); }
-      .sign {
-        min-height: calc(100svh - 20px);
-        padding: 26px 14px 34px;
+      .cinema { padding: max(10px, env(safe-area-inset-top)) 10px max(10px, env(safe-area-inset-bottom)); }
+      .frame {
+        width: calc(100vw - 20px);
+        min-height: calc(var(--vh) * 92);
         border-radius: 28px;
-        grid-template-rows: auto 1fr;
+        padding: 18px;
       }
-      .sign::before { inset: 8px; }
-      .scene-wrap { min-height: 600px; align-items: center; }
-      .top-label {
-        max-width: 94%;
-        letter-spacing: 0.055em;
-        font-size: clamp(0.58rem, 2.8vw, 0.74rem);
-        padding: 9px 13px;
-        gap: 6px;
-      }
-      .scene-title { font-size: clamp(2.25rem, 15vw, 4.9rem); }
-      .scene-subtitle { font-size: clamp(0.98rem, 4.2vw, 1.18rem); line-height: 1.62; max-width: 94%; }
-      .message-box { padding: 20px 15px; border-radius: 24px; width: min(100%, 94vw); }
-      .message { font-size: clamp(0.96rem, 4.05vw, 1.16rem); line-height: 1.58; }
-      .teacher-line { font-size: clamp(0.98rem, 4vw, 1.18rem); line-height: 1.58; }
-      .teacher-name { font-size: clamp(2rem, 12.5vw, 3.9rem); }
-      .floating-word { display: none; }
-      .magic-glyph { opacity: 0.55; }
-      .g1 { left: 8%; top: 14%; }
-      .g2 { right: 8%; top: 16%; }
-      .g3 { bottom: 12%; left: 46%; }
-      .orb.o1 { left: -22%; top: 10%; }
-      .orb.o2 { right: -28%; bottom: 8%; }
-      .trail { width: 110px; }
-      .corner { border-width: 2px; width: 44px; height: 44px; }
-      .tl { top: 14px; left: 14px; }
-      .tr { top: 14px; right: 14px; }
-      .bl { bottom: 14px; left: 14px; }
-      .br { bottom: 14px; right: 14px; }
-      .scene.is-active .reveal-line:nth-child(1) { animation-delay: 1.8s; }
-      .scene.is-active .reveal-line:nth-child(2) { animation-delay: 3.5s; }
-      .scene.is-active .reveal-line:nth-child(3) { animation-delay: 5.2s; }
-      .scene.is-active .reveal-line:nth-child(4) { animation-delay: 6.9s; }
-      .scene.is-active .reveal-line:nth-child(5) { animation-delay: 8.6s; }
+      .frame::before { inset: 8px; }
+      .scene { padding: 30px 18px 42px; }
+      .eyebrow { letter-spacing: 0.08em; padding: 9px 13px; }
+      .message-card { border-radius: 20px; padding: 18px 14px; }
+      .subline { line-height: 1.58; }
+      .message { line-height: 1.50; }
+      .orb.one { width: 140px; height: 140px; left: -78px; }
+      .orb.two { width: 170px; height: 170px; right: -90px; }
     }
 
-    @media (max-width: 420px) {
-      .intro-card { border-radius: 25px; padding: 28px 20px; }
-      .intro-title { font-size: clamp(2.3rem, 13vw, 3.7rem); }
-      .intro-text { line-height: 1.58; font-size: 0.98rem; }
-      .start-btn { width: 100%; }
-      .scene-wrap { min-height: 610px; }
-      .divider { margin: 20px auto; }
-      .scene-kicker { letter-spacing: 0.12em; }
-      .message { line-height: 1.52; }
-    }
-
-    @media (max-height: 700px) and (max-width: 720px) {
-      .sign { padding-top: 20px; padding-bottom: 24px; }
-      .scene-wrap { min-height: 520px; }
-      .scene-title { font-size: clamp(2rem, 12vw, 4rem); }
-      .message { font-size: clamp(0.90rem, 3.6vw, 1.02rem); line-height: 1.46; }
-      .scene-subtitle { font-size: clamp(0.90rem, 3.7vw, 1.04rem); line-height: 1.48; }
-      .teacher-line { font-size: clamp(0.90rem, 3.6vw, 1.06rem); line-height: 1.48; }
+    @media (max-width: 390px) {
+      .scene { padding-inline: 14px; }
+      .message-card { padding: 16px 12px; }
+      h1 { font-size: clamp(2.55rem, 14vw, 4.8rem); }
+      h2 { font-size: clamp(1.85rem, 9vw, 3.5rem); }
+      .subline, .message { font-size: clamp(0.98rem, 4.25vw, 1.2rem); }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: 0.001ms !important;
-        animation-iteration-count: 1 !important;
-        scroll-behavior: auto !important;
-      }
-      canvas#particles, canvas#confetti, canvas#comets, .aurora, .halo, .beam, .magic-glyph, .cosmic-dust, .trail { display: none; }
-      .scene { transition: none; filter: none; }
-      .reveal-line { opacity: 1; transform: none; filter: none; }
+      *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+      canvas { display: none; }
     }
   </style>
 </head>
 <body>
-  <canvas id="particles" aria-hidden="true"></canvas>
-  <canvas id="comets" aria-hidden="true"></canvas>
-  <div class="cosmic-dust" aria-hidden="true"></div>
-  <div class="aurora" aria-hidden="true"></div>
-  <div class="halo" aria-hidden="true"></div>
-  <canvas id="confetti" aria-hidden="true"></canvas>
+  <main class="app" aria-label="Homenaje a la Generación 2023 2026">
+    <div class="space" aria-hidden="true"></div>
+    <div class="nebula" aria-hidden="true"></div>
+    <div class="horizon" aria-hidden="true"></div>
+    <canvas id="fx" aria-hidden="true"></canvas>
+    <canvas id="confetti" aria-hidden="true"></canvas>
 
-  <section class="intro" id="intro" aria-label="Pantalla de inicio">
-    <div class="intro-card">
-      <div class="intro-kicker">Un homenaje especial</div>
-      <h2 class="intro-title">Generación<br>2023 - 2026</h2>
-      <p class="intro-text">
-        Una experiencia preparada con cariño para mirar hacia atrás con gratitud, celebrar el presente con orgullo y despedir esta etapa como se merece: con emoción, calma, música y un recuerdo que permanezca.
-      </p>
-      <button class="start-btn" id="startBtn">Iniciar homenaje ✨</button>
-    </div>
-  </section>
+    <section class="intro" id="intro" aria-label="Pantalla de inicio">
+      <div class="intro-card">
+        <p class="intro-kicker">Un homenaje preparado con cariño</p>
+        <h1 class="intro-title">Generación<br>2023 - 2026</h1>
+        <p class="intro-text">Una pequeña travesía entre recuerdos, sueños y gratitud, dedicada a quienes están cerrando una etapa que siempre tendrá un lugar especial.</p>
+        <button class="start-btn" id="startBtn">Iniciar homenaje ✨</button>
+      </div>
+    </section>
 
-  <main class="page">
-    <section class="stage" aria-label="Homenaje automático para la generación 2023 2026">
-      <article class="sign" id="sign">
-        <div class="beam" aria-hidden="true"></div>
-        <div class="corner tl" aria-hidden="true"></div>
-        <div class="corner tr" aria-hidden="true"></div>
-        <div class="corner bl" aria-hidden="true"></div>
-        <div class="corner br" aria-hidden="true"></div>
-        <div class="orb o1" aria-hidden="true"></div>
-        <div class="orb o2" aria-hidden="true"></div>
-        <div class="trail t1" aria-hidden="true"></div>
-        <div class="trail t2" aria-hidden="true"></div>
-        <span class="magic-glyph g1" aria-hidden="true">✦</span>
-        <span class="magic-glyph g2" aria-hidden="true">✧</span>
-        <span class="magic-glyph g3" aria-hidden="true">✺</span>
-        <span class="floating-word w1">Sueños</span>
-        <span class="floating-word w2">Orgullo</span>
-        <span class="floating-word w3">Futuro</span>
-        <span class="floating-word w4">Cariño</span>
+    <section class="cinema">
+      <article class="frame" id="frame">
+        <div class="orb one" aria-hidden="true"></div>
+        <div class="orb two" aria-hidden="true"></div>
 
-        <div class="top-label"><span class="mini-heart">♥</span> Con cariño, orgullo y admiración <span class="mini-heart">♥</span></div>
-
-        <div class="scene-wrap" aria-live="polite">
-          <section class="scene is-active" data-duration="23000" aria-label="Generación 2023 2026">
-            <div class="scene-kicker">Una generación que deja huella</div>
-            <h1 class="scene-title">Generación<br>2023 - 2026</h1>
-            <div class="divider" aria-hidden="true"></div>
-            <p class="scene-subtitle">
-              <span class="reveal-line">Hoy el cielo parece abrirse para guardar sus nombres entre las estrellas.</span>
-              <span class="reveal-line">Cada risa, cada esfuerzo, cada clase compartida y cada pequeño logro forman parte de una historia muy especial.</span>
-              <span class="reveal-line">No es solamente el final de una etapa: es el inicio de nuevos caminos que empiezan a iluminarse frente a ustedes.</span>
+        <section class="scene active" data-scene="0">
+          <div class="scene-inner">
+            <div class="eyebrow"><span>✨</span><span>Con cariño y admiración</span></div>
+            <h1>
+              <span class="line" style="--d:0">Generación</span>
+              <span class="line" style="--d:1">2023 - 2026</span>
+            </h1>
+            <p class="subline">
+              <span class="line" style="--d:2">Hoy no solo celebramos un ciclo escolar.</span>
+              <span class="line" style="--d:3">Celebramos cada esfuerzo, cada logro, cada amistad</span>
+              <span class="line" style="--d:4">y todo lo que esta generación deja brillando en la memoria.</span>
             </p>
-          </section>
+          </div>
+        </section>
 
-          <section class="scene" data-duration="28000" aria-label="Mensaje a los alumnos">
-            <div class="scene-kicker">Para ustedes, queridos alumnos</div>
-            <h2 class="scene-title">Queridos<br>alumnos</h2>
-            <div class="message-box">
+        <section class="scene" data-scene="1">
+          <div class="scene-inner">
+            <div class="eyebrow"><span>🌙</span><span>Un camino que deja huella</span></div>
+            <h2>
+              <span class="line" style="--d:0">Cada paso cuenta</span>
+            </h2>
+            <p class="subline">
+              <span class="line" style="--d:1">Durante estos años aprendieron mucho más que lecciones.</span>
+              <span class="line" style="--d:2">Aprendieron a levantarse, a confiar, a convivir,</span>
+              <span class="line" style="--d:3">a descubrir quiénes son y a mirar hacia adelante</span>
+              <span class="line" style="--d:4">con la esperanza de construir algo propio y verdadero.</span>
+            </p>
+          </div>
+        </section>
+
+        <section class="scene" data-scene="2">
+          <div class="scene-inner">
+            <div class="eyebrow"><span>💫</span><span>Mensaje con cariño</span></div>
+            <div class="message-card">
               <p class="message">
-                <span class="reveal-line">Les deseo el mejor de los éxitos en todo lo que venga.</span>
-                <span class="reveal-line">Que sus sueños sigan creciendo con la misma fuerza con la que llegaron hasta este momento.</span>
-                <span class="reveal-line">Que nunca pierdan la curiosidad, la alegría, la esperanza ni la valentía para intentar cosas nuevas.</span>
-                <span class="reveal-line">Y que cada paso que den los acerque a una vida llena de propósito, aprendizaje y felicidad.</span>
+                <span class="line" style="--d:0">Les deseo el mejor de los éxitos en todo lo que emprendan.</span>
+                <span class="line" style="--d:1">Que nunca pierdan la ilusión de soñar en grande,</span>
+                <span class="line" style="--d:2">que tengan la valentía de intentarlo una y otra vez,</span>
+                <span class="line" style="--d:3">y que cada meta alcanzada les recuerde</span>
+                <span class="line" style="--d:4">que son capaces de llegar mucho más lejos de lo que imaginan.</span>
               </p>
             </div>
-          </section>
+          </div>
+        </section>
 
-          <section class="scene" data-duration="28000" aria-label="Deseos para el futuro">
-            <div class="scene-kicker">Que el futuro los encuentre brillando</div>
-            <h2 class="scene-title">Sigan<br>brillando</h2>
-            <div class="message-box">
-              <p class="message">
-                <span class="reveal-line">Que tengan <span class="highlight">éxito en lo profesional</span>, pero también en lo más importante: en lo humano y en lo personal.</span>
-                <span class="reveal-line">Que encuentren paz en lo que elijan, alegría en lo que construyan y confianza en cada decisión que tomen.</span>
-                <span class="reveal-line">Recuerden siempre su valor, lo lejos que han llegado y todo lo que son capaces de lograr.</span>
-                <span class="reveal-line">Lleven con orgullo esta etapa, porque también forma parte de la luz que los acompañará en el camino.</span>
-              </p>
-            </div>
-          </section>
-
-          <section class="scene" data-duration="34000" aria-label="Despedida con el nombre">
-            <div class="scene-kicker">Con gratitud y afecto</div>
-            <h2 class="scene-title">Hasta<br>pronto</h2>
-            <p class="teacher-line">
-              <span class="reveal-line">Gracias por permitir que este recuerdo forme parte de su historia.</span>
-              <span class="reveal-line">Me quedo con el orgullo de haber compartido este camino con ustedes y con la alegría de verlos avanzar.</span>
-              <span class="reveal-line">Que la vida les regale grandes momentos, buenas personas, oportunidades valiosas y motivos para seguir soñando.</span>
-              <span class="reveal-line">Son los deseos de su amigo y maestro</span>
-              <span class="reveal-line"><span class="teacher-name">Erick Carrillo</span> <span class="mini-heart">♥</span></span>
+        <section class="scene" data-scene="3">
+          <div class="scene-inner">
+            <div class="eyebrow"><span>🌟</span><span>Para lo que viene</span></div>
+            <h2>
+              <span class="line" style="--d:0">Que la vida los encuentre preparados</span>
+            </h2>
+            <p class="subline">
+              <span class="line" style="--d:1">Ojalá encuentren caminos llenos de oportunidades,</span>
+              <span class="line" style="--d:2">personas que los impulsen, momentos que los inspiren</span>
+              <span class="line" style="--d:3">y razones para seguir creciendo con humildad, alegría</span>
+              <span class="line" style="--d:4">y con esa luz única que cada uno lleva dentro.</span>
             </p>
-          </section>
-        </div>
+          </div>
+        </section>
+
+        <section class="scene" data-scene="4">
+          <div class="scene-inner">
+            <div class="eyebrow"><span>♥</span><span>Con gratitud</span></div>
+            <h2>
+              <span class="line" style="--d:0">Gracias por formar parte de esta historia</span>
+            </h2>
+            <p class="subline">
+              <span class="line" style="--d:1">Que esta despedida no sea un final,</span>
+              <span class="line" style="--d:2">sino el comienzo de todo lo hermoso que está por venir.</span>
+              <span class="line" style="--d:3">Lleven siempre con orgullo lo vivido, lo aprendido</span>
+              <span class="line" style="--d:4">y el cariño de quienes creímos en ustedes.</span>
+            </p>
+            <p class="signature">
+              <span class="line" style="--d:5">Son los deseos de su amigo y maestro</span>
+              <strong class="line" style="--d:6"> Lic. Erick Carrillo</strong>
+            </p>
+          </div>
+        </section>
       </article>
+      <div class="progress-light" aria-hidden="true"></div>
     </section>
   </main>
 
   <audio id="bgMusic" src="Todo A Pulmon.mp3" preload="auto" loop></audio>
 
   <script>
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const intro = document.getElementById('intro');
-    const startBtn = document.getElementById('startBtn');
-    const sign = document.getElementById('sign');
-    const scenes = Array.from(document.querySelectorAll('.scene'));
-    const particleCanvas = document.getElementById('particles');
-    const particleCtx = particleCanvas.getContext('2d', { alpha: true });
-    const confettiCanvas = document.getElementById('confetti');
-    const confettiCtx = confettiCanvas.getContext('2d', { alpha: true });
-    const cometCanvas = document.getElementById('comets');
-    const cometCtx = cometCanvas.getContext('2d', { alpha: true });
-    const bgMusic = document.getElementById('bgMusic');
+    (() => {
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const intro = document.getElementById('intro');
+      const startBtn = document.getElementById('startBtn');
+      const scenes = Array.from(document.querySelectorAll('.scene'));
+      const frame = document.getElementById('frame');
+      const music = document.getElementById('bgMusic');
+      const fxCanvas = document.getElementById('fx');
+      const confettiCanvas = document.getElementById('confetti');
+      const fx = fxCanvas.getContext('2d', { alpha: true });
+      const confetti = confettiCanvas.getContext('2d', { alpha: true });
 
-    const CANCION_DE_FONDO = 'Todo A Pulmon.mp3';
-    const VOLUMEN_CANCION = 0.24;
+      const CANCION_DE_FONDO = 'Todo A Pulmon.mp3';
+      const VOLUMEN_CANCION = 0.34;
+      music.src = CANCION_DE_FONDO;
+      music.volume = VOLUMEN_CANCION;
 
-    bgMusic.src = CANCION_DE_FONDO;
-    bgMusic.volume = VOLUMEN_CANCION;
+      let width = 0;
+      let height = 0;
+      let dpr = 1;
+      let raf = 0;
+      let started = false;
+      let currentScene = 0;
+      let sceneTimer = null;
+      let sparkles = [];
+      let pieces = [];
+      let last = 0;
+      let confettiAccumulator = 0;
 
-    const confettiColors = ['#f2a6d9', '#b9a8ff', '#9ee8ff', '#fff0bd', '#a9f6d3', '#ffd1a8', '#fff8df'];
-    let particles = [];
-    let confetti = [];
-    let comets = [];
-    let rafId = null;
-    let width = 0;
-    let height = 0;
-    let dpr = Math.min(window.devicePixelRatio || 1, 1.18);
-    let lastFrame = performance.now();
-    let started = false;
-    let tiltRaf = null;
-    let sceneIndex = 0;
-    let sceneTimer = null;
+      const sceneDurations = [12500, 14000, 16000, 14500, 22000];
 
-    async function playMusic() {
-      try {
-        bgMusic.currentTime = 0;
-        await bgMusic.play();
-      } catch (error) {
-        console.warn('El navegador bloqueó la reproducción automática hasta recibir interacción del usuario.', error);
+      function setVh() {
+        document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
       }
-    }
 
-    function setSceneAtmosphere(index) {
-      document.body.classList.remove('scene-0', 'scene-1', 'scene-2', 'scene-3');
-      document.body.classList.add(`scene-${index}`);
-    }
-
-    function activateScene(index) {
-      scenes.forEach((scene, i) => {
-        scene.classList.toggle('is-active', i === index);
-        scene.classList.toggle('is-leaving-left', i < index);
-      });
-      sceneIndex = index;
-      setSceneAtmosphere(index);
-      addConfettiBurst(index === scenes.length - 1 ? 18 : 9);
-      addComet(index === scenes.length - 1 ? 2 : 1);
-    }
-
-    function scheduleNextScene() {
-      clearTimeout(sceneTimer);
-      if (!started || prefersReducedMotion) return;
-      const activeScene = scenes[sceneIndex];
-      const duration = Number(activeScene?.dataset.duration || 25000);
-      if (sceneIndex >= scenes.length - 1) return;
-      sceneTimer = setTimeout(() => {
-        activateScene(sceneIndex + 1);
-        scheduleNextScene();
-      }, duration);
-    }
-
-    function startExperience() {
-      started = true;
-      document.body.classList.add('ready');
-      intro.classList.add('hidden');
-      activateScene(0);
-      playMusic();
-      addConfettiBurst(26);
-      addComet(2);
-      scheduleNextScene();
-    }
-
-    startBtn.addEventListener('click', startExperience, { passive: true });
-
-    function sizeCanvas(canvas, ctx) {
-      canvas.width = Math.floor(width * dpr);
-      canvas.height = Math.floor(height * dpr);
-      canvas.style.width = width + 'px';
-      canvas.style.height = height + 'px';
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    }
-
-    function resizeCanvas() {
-      width = window.innerWidth;
-      height = window.innerHeight;
-      dpr = Math.min(window.devicePixelRatio || 1, 1.18);
-      sizeCanvas(particleCanvas, particleCtx);
-      sizeCanvas(confettiCanvas, confettiCtx);
-      sizeCanvas(cometCanvas, cometCtx);
-      createParticles();
-      createConfetti();
-      createComets();
-    }
-
-    function createParticles() {
-      const isMobile = width < 720;
-      const count = prefersReducedMotion ? 0 : Math.min(isMobile ? 46 : 76, Math.floor((width * height) / (isMobile ? 15000 : 20500)));
-      particles = Array.from({ length: count }, () => ({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        r: Math.random() * 1.15 + 0.32,
-        vx: (Math.random() - 0.5) * 0.050,
-        vy: -0.018 - Math.random() * 0.060,
-        hue: 215 + Math.random() * 95,
-        alpha: 0.08 + Math.random() * 0.23,
-        tw: Math.random() * Math.PI * 2
-      }));
-    }
-
-    function resetConfettiPiece(piece, fromTop = false) {
-      piece.x = Math.random() * width;
-      piece.y = fromTop ? -20 - Math.random() * height * 0.25 : Math.random() * height;
-      piece.w = 3 + Math.random() * 3.6;
-      piece.h = 5.4 + Math.random() * 6.2;
-      piece.vy = 9 + Math.random() * 18;
-      piece.vx = -4 + Math.random() * 8;
-      piece.swing = Math.random() * Math.PI * 2;
-      piece.swingSpeed = 0.24 + Math.random() * 0.48;
-      piece.rotation = Math.random() * Math.PI * 2;
-      piece.rotationSpeed = -0.55 + Math.random() * 1.1;
-      piece.color = confettiColors[Math.floor(Math.random() * confettiColors.length)];
-      piece.alpha = 0.14 + Math.random() * 0.15;
-    }
-
-    function createConfetti() {
-      const isMobile = width < 720;
-      const count = prefersReducedMotion ? 0 : Math.min(isMobile ? 50 : 86, Math.floor((width * height) / (isMobile ? 13000 : 18000)));
-      confetti = Array.from({ length: count }, () => {
-        const piece = {};
-        resetConfettiPiece(piece, false);
-        return piece;
-      });
-    }
-
-    function addConfettiBurst(amount) {
-      if (prefersReducedMotion) return;
-      for (let i = 0; i < amount; i++) {
-        const piece = {};
-        resetConfettiPiece(piece, true);
-        piece.y = -30 - Math.random() * 130;
-        piece.vy += 10 + Math.random() * 20;
-        piece.alpha += 0.05;
-        confetti.push(piece);
-      }
-      const maxPieces = width < 720 ? 74 : 118;
-      if (confetti.length > maxPieces) confetti.splice(0, confetti.length - maxPieces);
-    }
-
-    function createComets() {
-      comets = [];
-      if (!prefersReducedMotion) addComet(width < 720 ? 2 : 3, true);
-    }
-
-    function addComet(amount = 1, randomize = false) {
-      if (prefersReducedMotion) return;
-      for (let i = 0; i < amount; i++) {
-        comets.push({
-          x: randomize ? Math.random() * width : -80 - Math.random() * 120,
-          y: randomize ? Math.random() * height * 0.55 : Math.random() * height * 0.48,
-          vx: 42 + Math.random() * 34,
-          vy: 18 + Math.random() * 24,
-          life: randomize ? Math.random() * 380 + 80 : 0,
-          maxLife: 460 + Math.random() * 240,
-          alpha: 0.10 + Math.random() * 0.16,
-          len: 70 + Math.random() * 60
-        });
-      }
-      if (comets.length > 7) comets.splice(0, comets.length - 7);
-    }
-
-    function drawParticles(dt) {
-      particleCtx.clearRect(0, 0, width, height);
-      for (const p of particles) {
-        p.x += p.vx * dt;
-        p.y += p.vy * dt;
-        p.tw += 0.008 * dt;
-        if (p.y < -10) { p.y = height + 10; p.x = Math.random() * width; }
-        if (p.x < -10) p.x = width + 10;
-        if (p.x > width + 10) p.x = -10;
-
-        const glow = 0.38 + Math.sin(p.tw) * 0.17;
-        particleCtx.beginPath();
-        particleCtx.fillStyle = `hsla(${p.hue}, 70%, 78%, ${Math.max(0.045, p.alpha * glow)})`;
-        particleCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        particleCtx.fill();
-      }
-    }
-
-    function drawConfetti(dt) {
-      confettiCtx.clearRect(0, 0, width, height);
-      if (!started) return;
-
-      for (const c of confetti) {
-        c.swing += c.swingSpeed * dt / 60;
-        c.rotation += c.rotationSpeed * dt / 60;
-        c.x += (c.vx + Math.sin(c.swing) * 7) * dt / 60;
-        c.y += c.vy * dt / 60;
-
-        if (c.y > height + 24 || c.x < -44 || c.x > width + 44) resetConfettiPiece(c, true);
-
-        confettiCtx.save();
-        confettiCtx.globalAlpha = c.alpha;
-        confettiCtx.translate(c.x, c.y);
-        confettiCtx.rotate(c.rotation);
-        confettiCtx.fillStyle = c.color;
-        confettiCtx.fillRect(-c.w / 2, -c.h / 2, c.w, c.h);
-        confettiCtx.restore();
-      }
-    }
-
-    function drawComets(dt) {
-      cometCtx.clearRect(0, 0, width, height);
-      for (const comet of comets) {
-        comet.life += dt / 16.7;
-        comet.x += comet.vx * dt / 1000;
-        comet.y += comet.vy * dt / 1000;
-        const fade = Math.sin(Math.min(1, comet.life / comet.maxLife) * Math.PI);
-        const alpha = comet.alpha * Math.max(0, fade);
-
-        cometCtx.save();
-        cometCtx.globalAlpha = alpha;
-        const gradient = cometCtx.createLinearGradient(comet.x, comet.y, comet.x - comet.len, comet.y - comet.len * 0.42);
-        gradient.addColorStop(0, 'rgba(255,240,189,0.9)');
-        gradient.addColorStop(0.35, 'rgba(158,232,255,0.32)');
-        gradient.addColorStop(1, 'rgba(158,232,255,0)');
-        cometCtx.strokeStyle = gradient;
-        cometCtx.lineWidth = 1.2;
-        cometCtx.beginPath();
-        cometCtx.moveTo(comet.x, comet.y);
-        cometCtx.lineTo(comet.x - comet.len, comet.y - comet.len * 0.42);
-        cometCtx.stroke();
-        cometCtx.restore();
-      }
-      comets = comets.filter(c => c.life < c.maxLife && c.x < width + 120 && c.y < height + 120);
-      if (started && Math.random() < 0.0045) addComet(1);
-    }
-
-    function loop(now = performance.now()) {
-      const dt = Math.min(34, now - lastFrame);
-      lastFrame = now;
-      drawParticles(dt);
-      drawConfetti(dt);
-      drawComets(dt);
-      rafId = requestAnimationFrame(loop);
-    }
-
-    function initCanvases() {
-      if (prefersReducedMotion) return;
-      resizeCanvas();
-      if (rafId) cancelAnimationFrame(rafId);
-      lastFrame = performance.now();
-      loop(lastFrame);
-    }
-
-    let resizeTimer;
-    window.addEventListener('resize', () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(resizeCanvas, 140);
-    }, { passive: true });
-
-    document.addEventListener('pointermove', (event) => {
-      if (window.innerWidth < 900 || prefersReducedMotion || tiltRaf) return;
-      tiltRaf = requestAnimationFrame(() => {
-        const x = event.clientX / window.innerWidth - 0.5;
-        const y = event.clientY / window.innerHeight - 0.5;
-        sign.style.transform = `rotateY(${x * 1.15}deg) rotateX(${-y * 1.15}deg)`;
-        tiltRaf = null;
-      });
-    }, { passive: true });
-
-    document.addEventListener('pointerleave', () => {
-      sign.style.transform = 'rotateY(0deg) rotateX(0deg)';
-    }, { passive: true });
-
-    document.addEventListener('visibilitychange', () => {
-      if (document.hidden) {
-        if (rafId) cancelAnimationFrame(rafId);
-        rafId = null;
-        clearTimeout(sceneTimer);
-      } else {
-        if (!rafId && !prefersReducedMotion) {
-          lastFrame = performance.now();
-          loop(lastFrame);
+      function resizeCanvas() {
+        setVh();
+        width = window.innerWidth;
+        height = window.innerHeight;
+        dpr = Math.min(window.devicePixelRatio || 1, width < 760 ? 1.15 : 1.35);
+        for (const canvas of [fxCanvas, confettiCanvas]) {
+          canvas.width = Math.floor(width * dpr);
+          canvas.height = Math.floor(height * dpr);
+          canvas.style.width = `${width}px`;
+          canvas.style.height = `${height}px`;
         }
-        scheduleNextScene();
+        fx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        confetti.setTransform(dpr, 0, 0, dpr, 0, 0);
+        createSparkles();
       }
-    });
 
-    setSceneAtmosphere(0);
-    initCanvases();
+      function createSparkles() {
+        const isMobile = width < 720;
+        const count = prefersReducedMotion ? 0 : Math.min(isMobile ? 42 : 78, Math.floor((width * height) / (isMobile ? 15000 : 17500)));
+        sparkles = Array.from({ length: count }, () => ({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          r: 0.6 + Math.random() * 1.4,
+          vx: -0.04 + Math.random() * 0.08,
+          vy: -0.035 - Math.random() * 0.07,
+          twinkle: Math.random() * Math.PI * 2,
+          hue: [45, 205, 265, 325][Math.floor(Math.random() * 4)]
+        }));
+      }
+
+      function addConfetti(amount) {
+        if (prefersReducedMotion) return;
+        const colors = ['#f5a6cf', '#bdb2ff', '#fff1b8', '#9adfff', '#b8f7d4'];
+        for (let i = 0; i < amount; i++) {
+          pieces.push({
+            x: Math.random() * width,
+            y: -18 - Math.random() * height * 0.25,
+            w: 4 + Math.random() * 5,
+            h: 7 + Math.random() * 9,
+            vx: -0.22 + Math.random() * 0.44,
+            vy: 0.45 + Math.random() * 0.65,
+            rot: Math.random() * Math.PI * 2,
+            vr: -0.018 + Math.random() * 0.036,
+            color: colors[Math.floor(Math.random() * colors.length)],
+            alpha: 0.42 + Math.random() * 0.30
+          });
+        }
+        if (pieces.length > 110) pieces.splice(0, pieces.length - 110);
+      }
+
+      function draw(now) {
+        const dt = Math.min(34, now - last || 16.7);
+        last = now;
+        fx.clearRect(0, 0, width, height);
+        confetti.clearRect(0, 0, width, height);
+
+        for (const p of sparkles) {
+          p.x += p.vx * dt * 0.06;
+          p.y += p.vy * dt * 0.06;
+          p.twinkle += 0.018;
+          if (p.y < -10) { p.y = height + 10; p.x = Math.random() * width; }
+          if (p.x < -10) p.x = width + 10;
+          if (p.x > width + 10) p.x = -10;
+          const a = 0.20 + Math.sin(p.twinkle) * 0.10;
+          fx.beginPath();
+          fx.fillStyle = `hsla(${p.hue}, 80%, 78%, ${Math.max(0.08, a)})`;
+          fx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          fx.fill();
+        }
+
+        if (started) {
+          confettiAccumulator += dt;
+          if (confettiAccumulator > (width < 720 ? 360 : 260)) {
+            addConfetti(width < 720 ? 1 : 2);
+            confettiAccumulator = 0;
+          }
+        }
+
+        for (let i = pieces.length - 1; i >= 0; i--) {
+          const c = pieces[i];
+          c.x += c.vx * dt * 0.06;
+          c.y += c.vy * dt * 0.06;
+          c.rot += c.vr * dt;
+          if (c.y > height + 30) { pieces.splice(i, 1); continue; }
+          confetti.save();
+          confetti.translate(c.x, c.y);
+          confetti.rotate(c.rot);
+          confetti.globalAlpha = c.alpha;
+          confetti.fillStyle = c.color;
+          confetti.fillRect(-c.w / 2, -c.h / 2, c.w, c.h);
+          confetti.restore();
+        }
+        confetti.globalAlpha = 1;
+
+        raf = requestAnimationFrame(draw);
+      }
+
+      function showScene(index) {
+        if (index >= scenes.length) return;
+        scenes.forEach((scene, i) => {
+          scene.classList.remove('active', 'exit-up', 'exit-left');
+          if (i < index) scene.classList.add(i % 2 ? 'exit-left' : 'exit-up');
+        });
+        scenes[index].classList.add('active');
+        currentScene = index;
+        frame.animate([
+          { transform: 'translate3d(0, 0, 0) scale(1)' },
+          { transform: index % 2 ? 'translate3d(-6px, 3px, 0) scale(1.006)' : 'translate3d(6px, -3px, 0) scale(1.006)' },
+          { transform: 'translate3d(0, 0, 0) scale(1)' }
+        ], { duration: 5200, easing: 'ease-in-out' });
+      }
+
+      function scheduleNext() {
+        clearTimeout(sceneTimer);
+        if (currentScene >= scenes.length - 1) return;
+        sceneTimer = setTimeout(() => {
+          showScene(currentScene + 1);
+          scheduleNext();
+        }, sceneDurations[currentScene]);
+      }
+
+      async function startExperience() {
+        if (started) return;
+        started = true;
+        document.body.classList.add('ready');
+        intro.classList.add('hidden');
+        addConfetti(width < 720 ? 28 : 44);
+        try {
+          music.currentTime = 0;
+          await music.play();
+        } catch (error) {
+          console.warn('La música no pudo iniciar automáticamente después del toque.', error);
+        }
+        showScene(0);
+        scheduleNext();
+      }
+
+      let resizeTimer;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(resizeCanvas, 120);
+      }, { passive: true });
+
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+          cancelAnimationFrame(raf);
+          raf = 0;
+        } else if (!raf) {
+          last = performance.now();
+          raf = requestAnimationFrame(draw);
+        }
+      });
+
+      startBtn.addEventListener('click', startExperience, { passive: true });
+      resizeCanvas();
+      if (!prefersReducedMotion) raf = requestAnimationFrame(draw);
+    })();
   </script>
 </body>
 </html>
